@@ -5,84 +5,54 @@
         <div class="field">
           <label class="label">Lema:</label>
           <div class="control">
-            <input class="input" type="text" >
+            <input class="input" type="text" v-model="nueva_palabra.lema">
           </div>
         </div>
 
         <div class="field">
           <label class="label">Información gramatical:</label>
           <div class="control">
-            <input class="input" type="text" >
+            <input class="input" type="text" v-model="nueva_palabra.informacion_gramatical">
           </div>
         </div>
 
         <div class="field">
           <label class="label">Hiperónimo:</label>
           <div class="control">
-            <input class="input" type="text" >
+            <input class="input" type="text" v-model="nueva_palabra.hiperonimo">
           </div>
         </div>
 
         <div class="field">
           <label class="label">Hipónimo:</label>
           <div class="control">
-            <input class="input" type="text" >
+            <input class="input" type="text" v-model="nueva_palabra.hiponimo">
           </div>
         </div>
 
         <div class="field">
           <label class="label">Significado:</label>
           <div class="control">
-            <input class="input" type="text" >
+            <textarea class="textarea" v-model="nueva_palabra.significado"></textarea>
           </div>
         </div>
 
         <div class="field">
           <label class="label">Ejemplo:</label>
           <div class="control">
-            <input class="input" type="text" >
+            <textarea class="textarea" rows="3" v-model="nueva_palabra.ejemplo"></textarea>
           </div>
         </div>
-
-        <button class="button is-primary">Guardar</button>
+        <div class="buttons is-centered">
+        <button class="button is-primary is-medium" v-on:click="guardar(), limpiar()">Guardar</button>
+        </div>
       </form>
     </div>
-    <div id="paddingList">
-      <table class="table is-striped is-narrow is-hoverable is-fullwidth" >
-        <thead>
-          <tr>
-            <th>Lema</th>
-            <th>información gramatical</th>
-            <th>Hiperónimo</th>
-            <th>Hipónimo</th>
-            <th>Significado</th>
-            <th>Ejemplo</th>
-            <th>Acciones</th>
-          </tr>
-          <tr v-for="(palabra in palabras">
-            <td>{{palabra.lema}}</td>
-            <td>{{palabra.informacion_gramatical}}</td>
-            <td>{{palabra.hiperonimo}}</td>
-            <td>{{palabra.hiponimo}}</td>
-            <td>{{palabra.significado}}</td>
-            <td>{{palabra.ejemplo}}</td>
-            <td>
-              <div class="field is-grouped">
-                <p class="control">
-                  <button class="button is-danger"><i class="fas fa-times"></i></button>
-                </p>
-                <p class="control">
-                  <button class="button is-link"><i class="fas fa-edit"></i></button>
-                </p>
-              </div>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
+    <div>
+      <router-view/>
     </div>
+
+       <pre>{{$data}}</pre>
   </div>
 
 </template>
@@ -93,18 +63,42 @@ const axios = require('axios');
 export default {
   data(){
     return{
+      nueva_palabra: {
+      lema: "",
+      informacion_gramatical: "",
+      hiperonimo: "",
+      hiponimo: "",
+      significado: "",
+      ejemplo: ""
+      },
+
       palabras: [],
     } 
   },
+  
+  methods:{
+    //form
+    guardar(){
+      axios.post("http://localhost:3000/palabra/", this.nueva_palabra).then(response=>{console.log(response)})
+    },
 
-  mounted(){
-    axios.get("http://localhost:3000/palabra/")
-    .then(response=>this.palabras = response.data)
-    console.log(this.response)
-    }
+    limpiar(){
+      this.nueva_palabra.lema = "",
+      this.nueva_palabra.informacion_gramatical = "",
+      this.nueva_palabra.hiperonimo = "",
+      this.nueva_palabra.hiponimo = "",
+      this.nueva_palabra.significado = "",
+      this.nueva_palabra.ejemplo = ""
+    },
+
+    
+  },
+
+  }
+
     
 
-}
+
 </script>
 
 <style lang="scss" scoped>
@@ -122,4 +116,9 @@ export default {
     padding-right: 5px;
     padding-left: 5px;  
   }
+
+  #tamaño{
+      width: 300px;
+  }
+
 </style>
