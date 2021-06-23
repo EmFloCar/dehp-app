@@ -1,58 +1,44 @@
 <template>
   <div>
     <div id="paddingForm">
-      <form class="box">
-        <div class="field">
-          <label class="label">Lema:</label>
-          <div class="control">
-            <input class="input" type="text" v-model="nueva_palabra.lema">
-          </div>
-        </div>
+      <form class="box" >
+        <section>
 
-        <div class="field">
-          <label class="label">Información gramatical:</label>
-          <div class="control">
-            <input class="input" type="text" v-model="nueva_palabra.informacion_gramatical">
-          </div>
-        </div>
+          <b-field label="Lema:" :label-position='"on-border"'>
+            <b-input v-model='nueva_palabra.lema'></b-input>
+          </b-field>
 
-        <div class="field">
-          <label class="label">Hiperónimo:</label>
-          <div class="control">
-            <input class="input" type="text" v-model="nueva_palabra.hiperonimo">
-          </div>
-        </div>
+          <b-field label="Información gramatical:" :label-position='"on-border"'>
+            <b-input v-model='nueva_palabra.informacion_gramatical'></b-input>
+          </b-field>
 
-        <div class="field">
-          <label class="label">Hipónimo:</label>
-          <div class="control">
-            <input class="input" type="text" v-model="nueva_palabra.hiponimo">
-          </div>
-        </div>
+          <b-field label="Hiperónimo:" :label-position='"on-border"'>
+            <b-input v-model='nueva_palabra.hiperonimo'></b-input>
+          </b-field>
 
-        <div class="field">
-          <label class="label">Significado:</label>
-          <div class="control">
-            <textarea class="textarea" v-model="nueva_palabra.significado"></textarea>
-          </div>
-        </div>
+          <b-field label="Hipónimo:" :label-position='"on-border"'>
+            <b-input v-model='nueva_palabra.hiponimo'></b-input>
+          </b-field>
 
-        <div class="field">
-          <label class="label">Ejemplo:</label>
-          <div class="control">
-            <textarea class="textarea" rows="3" v-model="nueva_palabra.ejemplo"></textarea>
+          <b-field label="Significado:" :label-position='"on-border"'>
+            <b-input type="textarea" v-model='nueva_palabra.significado'></b-input>
+          </b-field>
+
+          <b-field label="Ejemplo:" :label-position='"on-border"'>
+            <b-input type="textarea" v-model='nueva_palabra.ejemplo'></b-input>
+          </b-field>
+
+          <div class="buttons is-centered">
+            <b-button type="is-success is-centered" v-on:click=" savedToast(), guardar(), limpiar()" >Gurdar</b-button>
           </div>
-        </div>
-        <div class="buttons is-centered">
-        <button class="button is-primary is-medium" v-on:click="guardar(), limpiar()">Guardar</button>
-        </div>
+
+        </section>
       </form>
     </div>
+
     <div>
       <router-view/>
     </div>
-
-       <pre>{{$data}}</pre>
   </div>
 
 </template>
@@ -75,6 +61,11 @@ export default {
       palabras: [],
     } 
   },
+
+    mounted(){
+    axios.get("http://localhost:3000/palabra/").then(response=>this.palabras = response.data)
+    console.log(response.data)
+    },
   
   methods:{
     //form
@@ -91,34 +82,25 @@ export default {
       this.nueva_palabra.ejemplo = ""
     },
 
+    savedToast() {
+        this.$buefy.toast.open({
+            message: 'Guardado',
+            type: 'is-success'
+        })
+    },
+
     
   },
 
   }
-
-    
-
-
 </script>
 
 <style lang="scss" scoped>
   #paddingForm{
-    padding-right: 200px;
-    padding-left: 200px;
+    padding-top: 2%;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-bottom: 5%;
   }
-
-  #paddingList{
-    padding-top: 30px;
-    padding-bottom: 50px;
-  }
-
-  #paddingIcon{
-    padding-right: 5px;
-    padding-left: 5px;  
-  }
-
-  #tamaño{
-      width: 300px;
-  }
-
 </style>
+

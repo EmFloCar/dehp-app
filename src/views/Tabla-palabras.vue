@@ -74,11 +74,16 @@ export default {
 
   }
 
-    
-
-
 </script>
 
 <style lang="scss" scoped>
+  #paddingList{
+    padding-top: 30px;
+    padding-bottom: 50px;
+  }
 
+  #paddingIcon{
+    padding-right: 5px;
+    padding-left: 5px;  
+  }
 </style>
