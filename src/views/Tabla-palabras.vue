@@ -1,41 +1,39 @@
 <template>
-    <div id="paddingList">
-      <table class="table is-striped is-narrow is-hoverable is-fullwidth" >
-        <thead>
-          <tr>
-            <th>Lema</th>
-            <th>información gramatical</th>
-            <th>Hiperónimo</th>
-            <th>Hipónimo</th>
-            <th id="tamaño">Significado</th>
-            <th id="tamaño">Ejemplo</th>
-            <th>Acciones</th>
-          </tr>
-          <tr v-for="palabra in palabras" :key="palabra.id">
-            <td>{{palabra.lema}}</td>
-            <td>{{palabra.informacion_gramatical}}</td>
-            <td>{{palabra.hiperonimo}}</td>
-            <td>{{palabra.hiponimo}}</td>
-            <td>{{palabra.significado}}</td>
-            <td>{{palabra.ejemplo}}</td>
-            <td>
-              <div class="field is-grouped">
-                <p class="control">
-                  <button class="button is-danger" v-on:click="eliminar(palabra._id)"><i class="fas fa-times"></i></button>
-                </p>
-                <p class="control">
-                  <button class="button is-link"><i class="fas fa-edit"></i></button>
-                </p>
-              </div>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
+  <div id="paddingList">
+    <b-table :data="palabras" sticky-header height="500px" narrowed hoverable striped> 
+      <b-table-column field="lema" label="Lema" width="50" v-slot="props" searchable sortable>
+          {{ props.row.lema }}
+      </b-table-column>
 
-        </tbody>
-      </table>
-    </div>
-    
+      <b-table-column field="informacion_gramatical" label="Información Gramatical" width="50" v-slot="props"  >
+          {{ props.row.informacion_gramatical }}
+      </b-table-column>
+
+      <b-table-column field="hiperonimo" label="Hiperónimo" width="50" v-slot="props" >
+          <p> {{ props.row.hiperonimo }} </p> 
+      </b-table-column>
+
+      <b-table-column field="hiponimo" label="Hipónimo" width="50" v-slot="props" >
+          {{ props.row.hiponimo }}
+      </b-table-column>
+
+      <b-table-column field="significado" label="Significado" width="50" v-slot="props" >
+          {{ props.row.significado }}
+      </b-table-column>
+
+      <b-table-column field="ejemplo" label="Ejemplo" width="50" v-slot="props" >
+          {{ props.row.ejemplo }}
+      </b-table-column>
+
+      <b-table-column label="Acciones" width="50" v-slot="props" centered>
+        <div class="field is-grouped" id="center">
+          <p class="control"> <b-button type="is-danger" icon-pack="fas" icon-left="trash" v-on:click="eliminar(props.row._id), DeletedToast(), actualizar()"/> </p>
+          <p class="control"> <b-button type="is-info" icon-pack="fas" icon-left="edit"/> </p>
+        </div>
+      </b-table-column>
+      
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -43,19 +41,7 @@ const axios = require('axios');
 export default {
   data(){
     return{
-      nueva_palabra: {
-      lema: "",
-      informacion_gramatical: "",
-      hiperonimo: "",
-      hiponimo: "",
-      significado: "",
-      ejemplo: ""
-      },
-
       palabras: [],
-
-      ViewForm: null,
-      ViewTable: null,
     } 
   },
 
@@ -66,9 +52,20 @@ export default {
     },
   
   methods:{
-    //tabla
-     eliminar(id){
+    eliminar(id){
       axios.delete("http://localhost:3000/palabra/" + id).then(response => {console.log(response)})  
+    },
+
+    actualizar(){
+      axios.get("http://localhost:3000/palabra/").then(response=>this.palabras = response.data)
+      console.log(response.data)
+    },
+
+    DeletedToast() {
+        this.$buefy.toast.open({
+            message: 'Eliminado',
+            type: 'is-danger'
+        })
     },
   },
 
@@ -83,7 +80,15 @@ export default {
   }
 
   #paddingIcon{
-    padding-right: 5px;
-    padding-left: 5px;  
+    padding-right: 1px;
+    padding-left: 1px; 
   }
+
+  #center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
 </style>
