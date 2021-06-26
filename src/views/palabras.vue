@@ -29,7 +29,7 @@
           </b-field>
 
           <div class="buttons is-centered">
-            <b-button type="is-success is-centered" v-on:click=" savedToast(), guardar(), limpiar()" >Gurdar</b-button>
+            <b-button type="is-success is-centered" v-on:click=" savedToast(), guardar(), limpiar()" >Guardar</b-button>
           </div>
 
         </section>

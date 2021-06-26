@@ -28,7 +28,7 @@
       <b-table-column label="Acciones" width="50" v-slot="props" centered>
         <div class="field is-grouped" id="center">
           <p class="control"> <b-button type="is-danger" icon-pack="fas" icon-left="trash" v-on:click="eliminar(props.row._id), DeletedToast(), actualizar()"/> </p>
-          <p class="control"> <b-button type="is-info" icon-pack="fas" icon-left="edit"/> </p>
+          <p class="control"> <b-button type="is-info" icon-pack="fas" icon-left="edit" v-on:click="editar(props.row._id)"/> </p>
         </div>
       </b-table-column>
       
@@ -61,12 +61,30 @@ export default {
       console.log(response.data)
     },
 
+    editar(id){
+      this.$router.push('/editar-palabra/' + id)
+    },
+
     DeletedToast() {
+        
         this.$buefy.toast.open({
             message: 'Eliminado',
             type: 'is-danger'
         })
+        
     },
+
+    // eliminarNew(id) {
+    //     this.$buefy.dialog.confirm({
+    //         title: 'Borrando entrada',
+    //         message: 'Estás seguro que quieres <b>borrar</b> esta entrada? Esta acción no se puede deshacer.',
+    //         confirmText: 'Borrar entrada',
+    //         type: 'is-danger',
+    //         hasIcon: true,
+    //         onConfirm: () => { this.DeletedToast(), this.eliminar(id), this.actualizar()},
+    //     })
+    // }
+         
   },
 
   }
