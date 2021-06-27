@@ -1,85 +1,40 @@
 <template>
   <div>
     <div id="paddingForm">
-      <form class="box">
-        <div class="field">
-          <label class="label">Lema:</label>
-          <div class="control">
-            <input class="input" type="text" v-model="nueva_palabra.lema">
-          </div>
-        </div>
+      <form class="box" >
+        <section>
 
-        <div class="field">
-          <label class="label">Isoglosa:</label>
-          <div class="control">
-            <input class="input" type="text" v-model="nueva_palabra.informacion_gramatical">
-          </div>
-        </div>
+          <b-field label="Lema:" :label-position='"on-border"'>
+            <b-input v-model='nuevoRefran.lema'></b-input>
+          </b-field>
 
-        <div class="field">
-          <label class="label">Acto de habla:</label>
-          <div class="control">
-            <input class="input" type="text" v-model="nueva_palabra.hiperonimo">
-          </div>
-        </div>
+          <b-field label="Isoglosa:" :label-position='"on-border"'>
+            <b-input v-model='nuevoRefran.isoglosa'></b-input>
+          </b-field>
 
-        <div class="field">
-          <label class="label">Explicación:</label>
-          <div class="control">
-            <textarea class="textarea" v-model="nueva_palabra.significado"></textarea>
-          </div>
-        </div>
+          <b-field label="Acto de habla:" :label-position='"on-border"'>
+            <b-input v-model='nuevoRefran.acto_de_habla'></b-input>
+          </b-field>
 
-        <div class="field">
-          <label class="label">Ejemplo:</label>
-          <div class="control">
-            <textarea class="textarea" v-model="nueva_palabra.significado"></textarea>
-          </div>
-        </div>
+          <b-field label="Explicación:" :label-position='"on-border"'>
+            <b-input type="textarea" v-model='nuevoRefran.explicacion'></b-input>
+          </b-field>
 
-        <div id="center">
-        <button class="button is-primary" v-on:click="guardar(), limpiar()">Guardar</button>
-        </div>
+          <b-field label="Ejemplo:" :label-position='"on-border"'>
+            <b-input type="textarea" v-model='nuevoRefran.ejemplo'></b-input>
+          </b-field>
+
+          <div class="buttons is-centered">
+            <b-button type="is-success is-centered" v-on:click=" savedToast(), guardar(), limpiar()" >Guardar</b-button>
+          </div>
+
+        </section>
       </form>
     </div>
-    <div id="paddingList">
-      <table class="table is-striped is-narrow is-hoverable is-fullwidth" >
-        <thead>
-          <tr>
-            <th>Lema</th>
-            <th>información gramatical</th>
-            <th>Hiperónimo</th>
-            <th>Hipónimo</th>
-            <th id="tamaño">Significado</th>
-            <th id="tamaño">Ejemplo</th>
-            <th>Acciones</th>
-          </tr>
-          <tr v-for="(palabra in palabras">
-            <td>{{palabra.lema}}</td>
-            <td>{{palabra.informacion_gramatical}}</td>
-            <td>{{palabra.hiperonimo}}</td>
-            <td>{{palabra.hiponimo}}</td>
-            <td>{{palabra.significado}}</td>
-            <td>{{palabra.ejemplo}}</td>
-            <td>
-              <div class="field is-grouped">
-                <p class="control">
-                  <button class="button is-danger" v-on:click="eliminar(palabra._id)"><i class="fas fa-times"></i></button>
-                </p>
-                <p class="control">
-                  <button class="button is-link"><i class="fas fa-edit"></i></button>
-                </p>
-              </div>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
 
-        </tbody>
-      </table>
+    <div>
+      <router-view/>
     </div>
-
-       <pre>{{$data}}</pre>
   </div>
 
 </template>
@@ -90,75 +45,52 @@ const axios = require('axios');
 export default {
   data(){
     return{
-      nueva_palabra: {
-      lema: "",
-      informacion_gramatical: "",
-      hiperonimo: "",
-      hiponimo: "",
-      significado: "",
-      ejemplo: ""
-      },
-
-      palabras: [],
+      nuevoRefran: {
+        lema: "",
+        isoglosa: "",
+        acto_de_habla: "",
+        explicacion: "",
+        ejemplo: ""
+        },
+    
+      refranes: [],
     } 
   },
 
-  mounted(){
-    axios.get("http://localhost:3000/palabra/").then(response=>this.palabras = response.data)
-    console.log(response.data)
-    },
   
   methods:{
+    //form
     guardar(){
-      axios.post("http://localhost:3000/palabra/", this.nueva_palabra).then(response=>{console.log(response)})
-    },
-    
-     eliminar(id){
-      axios.delete("http://localhost:3000/palabra/" + id).then(response => {console.log(response)})  
+      axios.post("http://localhost:3000/refran/", this.nuevoRefran).then(response=>{console.log(response)})
     },
 
     limpiar(){
-      this.nueva_palabra.lema = "",
-      this.nueva_palabra.informacion_gramatical = "",
-      this.nueva_palabra.hiperonimo = "",
-      this.nueva_palabra.hiponimo = "",
-      this.nueva_palabra.significado = "",
-      this.nueva_palabra.ejemplo = ""
+      this.nuevoRefran.lema = "",
+      this.nuevoRefran.isoglosa = "",
+      this.nuevoRefran.acto_de_habla = "",
+      this.nuevoRefran.explicacion = "",
+      this.nuevoRefran.ejemplo = ""
     },
+
+    savedToast() {
+        this.$buefy.toast.open({
+            message: 'Guardado',
+            type: 'is-success'
+        })
+    },
+
+    
   },
 
   }
-
-    
-
-
 </script>
 
 <style lang="scss" scoped>
   #paddingForm{
-    padding-right: 200px;
-    padding-left: 200px;
+    padding-top: 2%;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-bottom: 5%;
   }
-
-  #paddingList{
-    padding-top: 30px;
-    padding-bottom: 50px;
-  }
-
-  #paddingIcon{
-    padding-right: 5px;
-    padding-left: 5px;  
-  }
-
-  #center{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 20px;
-  }
-
-  #tamaño{
-      width: 300px;
-  }
-
 </style>
+

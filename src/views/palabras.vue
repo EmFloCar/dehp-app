@@ -61,11 +61,6 @@ export default {
       palabras: [],
     } 
   },
-
-    mounted(){
-    axios.get("http://localhost:3000/palabra/").then(response=>this.palabras = response.data)
-    console.log(response.data)
-    },
   
   methods:{
     //form

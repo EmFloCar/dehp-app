@@ -16,12 +16,8 @@
             </b-navbar-dropdown>
 
             <b-navbar-dropdown label="REFRAN">
-                <b-navbar-item href="#">
-                    About
-                </b-navbar-item>
-                <b-navbar-item href="#">
-                    Contact
-                </b-navbar-item>
+                <router-link to="/refranes" ><b-navbar-item>Añadir</b-navbar-item></router-link>
+                <router-link to="tabla-refranes"><b-navbar-item>Editar</b-navbar-item></router-link>
             </b-navbar-dropdown>
         </template>
     </b-navbar>
