@@ -27,7 +27,7 @@
 
       <b-table-column label="Acciones" width="50" v-slot="props" centered>
         <div class="field is-grouped" id="center">
-          <p class="control"> <b-button type="is-danger" icon-pack="fas" icon-left="trash" v-on:click="eliminar(props.row._id), DeletedToast(), actualizar()"/> </p>
+          <p class="control"> <b-button type="is-danger" icon-pack="fas" icon-left="trash" v-on:click="eliminarNew(props.row._id)"/> </p>
           <p class="control"> <b-button type="is-info" icon-pack="fas" icon-left="edit" v-on:click="editar(props.row._id)"/> </p>
         </div>
       </b-table-column>
@@ -46,18 +46,21 @@ export default {
   },
 
 // tabla
-  mounted(){
-    axios.get("http://localhost:3000/palabra/").then(response=>this.palabras = response.data)
+  async mounted(){
+    let response = await axios.get("http://localhost:3000/palabra/");
+    this.palabras = response.data;
     console.log(response.data)
     },
   
   methods:{
-    eliminar(id){
-      axios.delete("http://localhost:3000/palabra/" + id).then(response => {console.log(response)})  
+    async eliminar(id){
+      let response = await axios.delete("http://localhost:3000/palabra/" + id)
+      console.log(response)
     },
 
-    actualizar(){
-      axios.get("http://localhost:3000/palabra/").then(response=>this.palabras = response.data)
+    async actualizar(){
+      let response = await axios.get("http://localhost:3000/palabra/");
+      this.palabras = response.data;
       console.log(response.data)
     },
 
@@ -74,16 +77,21 @@ export default {
         
     },
 
-    // eliminarNew(id) {
-    //     this.$buefy.dialog.confirm({
-    //         title: 'Borrando entrada',
-    //         message: 'Estás seguro que quieres <b>borrar</b> esta entrada? Esta acción no se puede deshacer.',
-    //         confirmText: 'Borrar entrada',
-    //         type: 'is-danger',
-    //         hasIcon: true,
-    //         onConfirm: () => { this.DeletedToast(), this.eliminar(id), this.actualizar()},
-    //     })
-    // }
+    eliminarNew(id) {
+        this.$buefy.dialog.confirm({
+            title: 'Borrando entrada',
+            message: 'Estás seguro que quieres <b>borrar</b> esta entrada? Esta acción no se puede deshacer.',
+
+            confirmText: 'Borrar entrada',
+            cancelText: 'Cancelar',
+
+            type: 'is-danger',
+            hasIcon: true,
+            iconPack: 'fas',
+            icon: 'exclamation-circle',
+            onConfirm: () => { this.DeletedToast(), this.eliminar(id), this.actualizar()},
+        })
+    },
          
   },
 
@@ -93,8 +101,7 @@ export default {
 
 <style lang="scss" scoped>
   #paddingList{
-    padding-top: 30px;
-    padding-bottom: 50px;
+    padding: 30px 20px 50px 20px;
   }
 
   #paddingIcon{
