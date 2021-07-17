@@ -14,13 +14,10 @@
           <b-input v-model="refran.acto_de_habla"></b-input>
         </b-field>
 
-        <b-field label="Explicación:" :label-position="'on-border'">
-          <b-input type="textarea" v-model="refran.explicacion"></b-input>
+        <b-field label="Significado:" :label-position="'on-border'">
+          <b-input type="textarea" v-model="refran.significado"></b-input>
         </b-field>
 
-        <b-field label="Ejemplo:" :label-position="'on-border'">
-          <b-input type="textarea" v-model="refran.ejemplo"></b-input>
-        </b-field>
 
         <div class="buttons is-centered">
           <b-button
@@ -48,8 +45,7 @@ export default {
         lema: "",
         isoglosa: "",
         acto_de_habla: "",
-        explicacion: "",
-        ejemplo: "",
+        significado: "",
       },
     };
   },
@@ -65,6 +61,7 @@ export default {
 
     salir() {
       this.$router.push("/crud/tabla-refranes");
+      
     },
 
     EditedToast() {
@@ -81,8 +78,7 @@ export default {
       this.refran.lema = datos.data.lema;
       this.refran.isoglosa = datos.data.isoglosa;
       this.refran.acto_de_habla = datos.data.acto_de_habla;
-      this.refran.explicacion = datos.data.explicacion;
-      this.refran.ejemplo = datos.data.ejemplo;
+      this.refran.significado = datos.data.significado;
     });
   },
 };

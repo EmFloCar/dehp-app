@@ -18,6 +18,10 @@
           <b-input v-model="palabra.hiponimo"></b-input>
         </b-field>
 
+        <b-field label="Isoglosa:" :label-position="'on-border'">
+          <b-input v-model="palabra.isoglosa"></b-input>
+        </b-field>        
+
         <b-field label="Significado:" :label-position="'on-border'">
           <b-input type="textarea" v-model="palabra.significado"></b-input>
         </b-field>
@@ -55,6 +59,8 @@ export default {
         hiponimo: "",
         significado: "",
         ejemplo: "",
+        imagenUrl: "",
+        isoglosa: "",
       },
     };
   },
@@ -89,6 +95,7 @@ export default {
         this.palabra.informacion_gramatical = datos.data.informacion_gramatical;
         this.palabra.hiperonimo = datos.data.hiperonimo;
         this.palabra.hiponimo = datos.data.hiponimo;
+        this.palabra.isoglosa = datos.data.isoglosa;
         this.palabra.significado = datos.data.significado;
         this.palabra.ejemplo = datos.data.ejemplo;
       });

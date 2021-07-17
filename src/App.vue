@@ -7,7 +7,7 @@
         <router-link to="/inicio">
         <b-navbar-item >INICIO</b-navbar-item>
         </router-link>
-
+        <hr class="navbar-divider">
         <b-navbar-dropdown label="PALABRA" hoverable>
           <router-link to="/crud/palabras"
             ><b-navbar-item>Añadir</b-navbar-item></router-link

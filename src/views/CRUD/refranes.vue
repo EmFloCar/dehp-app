@@ -16,12 +16,8 @@
             <b-input v-model='nuevoRefran.acto_de_habla'></b-input>
           </b-field>
 
-          <b-field label="Explicación:" :label-position='"on-border"'>
-            <b-input type="textarea" v-model='nuevoRefran.explicacion'></b-input>
-          </b-field>
-
-          <b-field label="Ejemplo:" :label-position='"on-border"'>
-            <b-input type="textarea" v-model='nuevoRefran.ejemplo'></b-input>
+          <b-field label="Significado:" :label-position='"on-border"'>
+            <b-input type="textarea" v-model='nuevoRefran.significado'></b-input>
           </b-field>
 
           <div class="buttons is-centered">
@@ -49,8 +45,7 @@ export default {
         lema: "",
         isoglosa: "",
         acto_de_habla: "",
-        explicacion: "",
-        ejemplo: ""
+        significado: "",
         },
     
       refranes: [],
@@ -68,8 +63,7 @@ export default {
       this.nuevoRefran.lema = "",
       this.nuevoRefran.isoglosa = "",
       this.nuevoRefran.acto_de_habla = "",
-      this.nuevoRefran.explicacion = "",
-      this.nuevoRefran.ejemplo = ""
+      this.nuevoRefran.significado = ""
     },
 
     savedToast() {

@@ -25,6 +25,10 @@
           {{ props.row.ejemplo }}
       </b-table-column>
 
+      <b-table-column field="isoglosa" label="Isoglosa" width="50" v-slot="props" >
+          {{ props.row.isoglosa }}
+      </b-table-column>
+
       <b-table-column label="Acciones" width="50" v-slot="props" centered>
         <div class="field is-grouped" id="center">
           <p class="control"> <b-button type="is-danger" icon-pack="fas" icon-left="trash" v-on:click="eliminarNew(props.row._id)"/> </p>

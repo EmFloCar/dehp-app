@@ -2,7 +2,7 @@
   <div id="paddingList">
     <b-table :data="refranes" sticky-header height="500px" narrowed hoverable striped> 
 
-      <b-table-column field="lema" label="Lema" width="50" v-slot="props" searchable sortable>
+      <b-table-column field="lema" label="Lema" width="150" v-slot="props" searchable sortable>
           {{ props.row.lema }}
       </b-table-column>
 
@@ -14,12 +14,8 @@
           <p> {{ props.row.acto_de_habla }} </p> 
       </b-table-column>
 
-      <b-table-column field="explicacion" label="Explicación" width="50" v-slot="props" >
-          {{ props.row.explicacion }}
-      </b-table-column>
-
-      <b-table-column field="ejemplo" label="Ejemplo" width="50" v-slot="props" >
-          {{ props.row.ejemplo }}
+      <b-table-column field="significado" label="Significado" width="50" v-slot="props" >
+          {{ props.row.significado }}
       </b-table-column>
 
       <b-table-column label="Acciones" width="50" v-slot="props" centered>

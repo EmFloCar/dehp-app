@@ -1,5 +1,5 @@
 <template>
-  <div class="inicio">
+  <div class="inicio ">
     <div v-if="ver == true">
       <div class="block SearchBar">
         <b-field>
@@ -16,51 +16,70 @@
       </div>
 
       <div class="jsjs ">
-        <div class="container box column is-one-third">
-          <div class="box " v-for="palabra in PalabrasFiltradas" :key="palabra">
-            <div class="columns">
-              <div class="column is-two-thirds color has-text">
-                <h1>{{ palabra.lema }}</h1>
+        <div class="container box column is-one-third" >
+          <div class="box " v-for="palabra in PalabrasFiltradas">
+            <div class="columns" >
+              <div class="column is-three-quarters color has-text">
+                <div> 
+                  <b>
+                    <p>
+                      {{ palabra.lema.toUpperCase() }}
+                    </p>
+                  </b>
+                </div>
               </div>
-              <div class="column  is-centered">
-              <!-- <b-button class="is-info">Ver más</b-button> -->
-              <a v-on:click="PalabraSeleccionada(palabra), cambiar()">Abrir</a>
+              <div class="column">
+                <!-- <b-button class="is-info">Ver más</b-button> -->
+                <div class="centrado">
+                <a v-on:click="PalabraSeleccionada(palabra), cambiar()">Ver más</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-<!-- componente para visualizar -->
-    <div v-if="ver==false" class="container componente">
+    <!-- componente para visualizar -->
+    <div v-if="ver == false" class="container componente">
       <div class="container">
-        <div class="box block">
-
-        <div class="columns">
-
-          <div class="column is-full componente-palabra">
-              <p> <b> {{this.seleccionada.lema}}:</b> {{this.seleccionada.informacion_gramatical}} (s), {{this.seleccionada.hiperonimo}} (m.h), {{this.seleccionada.hiponimo}} (c).
-              {{this.seleccionada.significado}}. "{{this.seleccionada.ejemplo}}".</p> 
+        <div class="block">
+          <div class="columns box">
+            <div class="column is-full centrado block">
+              <p>
+                <b> {{ this.seleccionada.lema }}:</b>
+                {{ this.seleccionada.informacion_gramatical }} (s),
+                {{ this.seleccionada.hiperonimo }} (m.h),
+                {{ this.seleccionada.hiponimo }} (c).
+                {{ this.seleccionada.significado }}. "{{
+                  this.seleccionada.ejemplo
+                }}".
+              </p>
+            </div>
           </div>
-
-        </div>
-
-        <div class="columns">
-            <div class="column is-6">
-              <figure class="image is-640x480" >
-                <img src="https://mlpnk72yciwc.i.optimole.com/cqhiHLc.WqA8~2eefa/w:auto/h:auto/q:75/https://bleedingcool.com/wp-content/uploads/2015/08/DIFFICULTIES.jpg">
-              </figure>
+            <div class="columns is-centered componente">
+              <div class="column box is-three-quarters ">
+                <figure class="image is-640x480">
+                  <img v-bind:src="this.seleccionada.imagenUrl" />
+                </figure>
+              </div>
             </div>
-
-            <div class="column is-6" style="background-color: gray;">
-
-              <figure class="image is-640x480">
-                <img src="https://static.vecteezy.com/system/resources/previews/002/318/161/non_2x/map-location-icon-free-vector.jpg">
-              </figure>
+            <div class="columns is-centered componente">
+            <div class="column box is-three-quarters ">
+              <div class="centrado">
+                <div class="proximo-mapa centrado">
+                  <div style="font-size: 24px;">
+                    <i class="fas fa-map-marked-alt fa-10x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="centrado" id="regresar">
+              <b-button class="is-info" v-on:click="cambiar() "
+                >REGRESAR</b-button
+              >
             </div>
         </div>
-          <b-button class="is-info" v-on:click="cambiar()">regresar</b-button>
-      </div>
       </div>
     </div>
   </div>
@@ -74,7 +93,7 @@ export default {
       palabras: [],
       search: "",
       ver: true,
-      seleccionada: []
+      seleccionada: [],
     };
   },
 
@@ -94,27 +113,26 @@ export default {
   },
 
   methods: {
-    PalabraSeleccionada(palabra){
+    PalabraSeleccionada(palabra) {
       this.seleccionada = palabra;
-      console.log("seleccionada", this.seleccionada)
     },
 
-    cambiar(){
+    cambiar() {
       if (this.ver == true) {
-        this.ver = false
+        this.ver = false;
       } else {
-        this.ver = true
+        this.ver = true;
       }
-      console.log(this.ver)
+      console.log(this.ver);
     },
-
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .inicio {
   background-color: azure;
+  width: 100%;
 }
 .SearchBar {
   padding: 70px 300px 30px 300px;
@@ -124,20 +142,30 @@ export default {
   padding-bottom: 100px;
 }
 
-.has-text{
+.has-text {
   height: auto;
   word-wrap: break-word;
 }
 
-.componente{
+.componente {
   padding: 40px 0px 0px 0px;
 }
 
-.componente-palabra{
-  padding: 40px 0px 50px 0px;
+.centrado {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: darkgray;
 }
+
+.proximo-mapa {
+  background-color: rgb(188, 206, 245);
+  width: 600px;
+  height: 500px;
+}
+
+#regresar{
+  padding-top: 20px;
+  padding-bottom: 60px;
+}
+
 </style>
