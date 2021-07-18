@@ -1,7 +1,8 @@
 <template>
   <div class="inicio ">
     <div v-if="ver == true">
-      <div class="block SearchBar">
+      <div class="columns is-centered" style="padding-top: 30px;">
+      <div class=" column is-half">
         <b-field>
           <b-input
             placeholder="Buscar palabra..."
@@ -14,11 +15,12 @@
           </b-input>
         </b-field>
       </div>
+    </div>
 
       <div class="jsjs ">
         <div class="container box column is-one-third" >
           <div class="box " v-for="palabra in PalabrasFiltradas">
-            <div class="columns" >
+            <div class="columns is-centered" >
               <div class="column is-three-quarters color has-text">
                 <div> 
                   <b>
@@ -29,10 +31,7 @@
                 </div>
               </div>
               <div class="column">
-                <!-- <b-button class="is-info">Ver más</b-button> -->
-                <div class="centrado">
                 <a v-on:click="PalabraSeleccionada(palabra), cambiar()">Ver más</a>
-                </div>
               </div>
             </div>
           </div>
@@ -66,7 +65,7 @@
             <div class="columns is-centered componente">
             <div class="column box is-three-quarters ">
               <div class="centrado">
-                <div class="proximo-mapa centrado">
+                <div class="mapa centrado">
                   <div style="font-size: 24px;">
                     <i class="fas fa-map-marked-alt fa-10x"></i>
                   </div>
@@ -99,7 +98,7 @@ export default {
 
   // tabla
   async mounted() {
-    let response = await axios.get("http://localhost:3000/palabra/");
+    let response = await axios.get("https://diccionario-backend.herokuapp.com/palabra/");
     this.palabras = response.data;
     console.log(response.data);
   },
@@ -132,10 +131,7 @@ export default {
 <style lang="scss" scoped>
 .inicio {
   background-color: azure;
-  width: 100%;
-}
-.SearchBar {
-  padding: 70px 300px 30px 300px;
+  height: 100vh;
 }
 
 .jsjs {
@@ -157,7 +153,7 @@ export default {
   align-items: center;
 }
 
-.proximo-mapa {
+.mapa {
   background-color: rgb(188, 206, 245);
   width: 600px;
   height: 500px;

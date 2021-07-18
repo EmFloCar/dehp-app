@@ -39,19 +39,19 @@ export default {
   },
 
   async mounted(){
-    let response = await axios.get("http://localhost:3000/refran/");
+    let response = await axios.get("https://diccionario-backend.herokuapp.com/refran/");
     this.refranes = response.data; 
     console.log(response.data)
     },
   
   methods:{
     async eliminar(id){
-      let response = await axios.delete("http://localhost:3000/refran/" + id)
+      let response = await axios.delete("https://diccionario-backend.herokuapp.com/refran/" + id)
       console.log(response)  
     },
 
     async actualizar(){
-    let response = await axios.get("http://localhost:3000/refran/");
+    let response = await axios.get("https://diccionario-backend.herokuapp.com/refran/");
     this.refranes = response.data;
     console.log(response.data)
     },

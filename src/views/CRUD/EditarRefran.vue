@@ -53,7 +53,7 @@ export default {
   methods: {
     editar() {
       axios
-        .put("http://localhost:3000/refran/" + this.refranId, this.refran)
+        .put("https://diccionario-backend.herokuapp.com/refran/" + this.refranId, this.refran)
         .then((data) => {
           console.log(data);
         });
@@ -74,7 +74,7 @@ export default {
 
   mounted() {
     this.refranId = this.$route.params.id;
-    axios.get("http://localhost:3000/refran/" + this.refranId).then((datos) => {
+    axios.get("https://diccionario-backend.herokuapp.com/refran/" + this.refranId).then((datos) => {
       this.refran.lema = datos.data.lema;
       this.refran.isoglosa = datos.data.isoglosa;
       this.refran.acto_de_habla = datos.data.acto_de_habla;

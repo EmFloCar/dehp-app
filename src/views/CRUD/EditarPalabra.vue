@@ -68,7 +68,7 @@ export default {
   methods: {
     editar() {
       axios
-        .put("http://localhost:3000/palabra/" + this.palabraId, this.palabra)
+        .put("https://diccionario-backend.herokuapp.com/palabra/" + this.palabraId, this.palabra)
         .then((data) => {
           console.log(data);
         });
@@ -89,7 +89,7 @@ export default {
   mounted() {
     this.palabraId = this.$route.params.id;
     axios
-      .get("http://localhost:3000/palabra/" + this.palabraId)
+      .get("https://diccionario-backend.herokuapp.com/palabra/" + this.palabraId)
       .then((datos) => {
         this.palabra.lema = datos.data.lema;
         this.palabra.informacion_gramatical = datos.data.informacion_gramatical;

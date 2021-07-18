@@ -133,7 +133,7 @@ export default {
       fd.append("file", this.seleccionada, this.seleccionada.name);
       fd.append("isoglosa", this.nueva_palabra.isoglosa);
 
-      axios.post("http://localhost:3000/palabra/", fd).then((response) => {
+      axios.post("https://diccionario-backend.herokuapp.com/palabra/", fd).then((response) => {
         console.log(response);
       });
     },

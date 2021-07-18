@@ -56,7 +56,7 @@ export default {
   methods:{
     //form
     guardar(){
-      axios.post("http://localhost:3000/refran/", this.nuevoRefran).then(response=>{console.log(response)})
+      axios.post("https://diccionario-backend.herokuapp.com/refran/", this.nuevoRefran).then(response=>{console.log(response)})
     },
 
     limpiar(){
