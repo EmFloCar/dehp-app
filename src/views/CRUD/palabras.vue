@@ -4,7 +4,6 @@
       <form
         class="box"
         enctype="multipart/form-data"
-        style="background-color: lavender;"
       >
         <section>
           <b-field label="Lema:" :label-position="'on-border'">

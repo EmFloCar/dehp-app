@@ -4,7 +4,7 @@
         <b-navbar :centered="true" :shadow="true" id="inicio" :spaced="true">
       <template #start>
 
-        <router-link to="/inicio">
+        <router-link to="/inicio/buscar">
         <b-navbar-item >INICIO</b-navbar-item>
         </router-link>
         <hr class="navbar-divider">

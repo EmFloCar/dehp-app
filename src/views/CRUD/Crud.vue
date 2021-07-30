@@ -1,6 +1,6 @@
 <template>
     <div class="inicio">
-      <router-view />
+      <router-view/>
     </div>
 
 </template>
@@ -11,6 +11,6 @@
 
 <style lang="scss" scoped>
   .inicio {
-    background-color: azure;
+    background-color: rgb(241, 241, 241);
   }
 </style>
