@@ -109,7 +109,6 @@
         </section>
       </form>
     </div>
-    <pre>{{ $data }}</pre>
   </div>
 </template>
 
