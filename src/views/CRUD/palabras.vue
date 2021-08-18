@@ -1,74 +1,97 @@
 <template>
   <div>
     <div id="paddingForm">
-      <form
-        class="box"
-        enctype="multipart/form-data"
-      >
+      <form class="box" enctype="multipart/form-data">
         <section>
           <b-field label="Lema:" :label-position="'on-border'">
-            <b-input v-model="nueva_palabra.lema"></b-input>
+            <b-input v-model="nueva_palabra.lema" required></b-input>
           </b-field>
 
           <b-field
             label="Información gramatical:"
             :label-position="'on-border'"
           >
-            <b-input v-model="nueva_palabra.informacion_gramatical"></b-input>
+            <b-select
+              v-model="nueva_palabra.informacion_gramatical"
+              expanded
+              required
+              placeholder="seleccione una opción"
+            >
+              <option
+                v-for="elemento in categoriasGramaticales"
+                :value="elemento"
+                :key="elemento"
+              >
+                {{ elemento }}
+              </option>
+            </b-select>
           </b-field>
 
           <b-field label="Hiperónimo:" :label-position="'on-border'">
-            <b-input v-model="nueva_palabra.hiperonimo"></b-input>
+            <b-select
+              v-model="nueva_palabra.hiperonimo"
+              expanded
+              required
+              placeholder="seleccione una opción"
+            >
+              <option
+                v-for="elemento in hiperonimo"
+                :value="elemento"
+                :key="elemento"
+              >
+                {{ elemento }}
+              </option>
+            </b-select>
           </b-field>
 
           <b-field label="Hipónimo:" :label-position="'on-border'">
-            <b-input v-model="nueva_palabra.hiponimo"></b-input>
+            <b-input v-model="nueva_palabra.hiponimo" required></b-input>
           </b-field>
 
           <b-field label="Isoglosa:" :label-position="'on-border'">
-            <b-input v-model="nueva_palabra.isoglosa"></b-input>
+            <b-input v-model="nueva_palabra.isoglosa" required></b-input>
           </b-field>
-          
+
           <b-field label="Significado:" :label-position="'on-border'">
             <b-input
               type="textarea"
               v-model="nueva_palabra.significado"
+              required
             ></b-input>
           </b-field>
 
           <b-field label="Ejemplo:" :label-position="'on-border'">
-            <b-input type="textarea" v-model="nueva_palabra.ejemplo"></b-input>
+            <b-input
+              type="textarea"
+              v-model="nueva_palabra.ejemplo"
+              required
+            ></b-input>
           </b-field>
 
-
-          <b-field b-field class="centrado">
-            <div class="box">
+          <b-field>
+            <div class="centrado">
               <section>
                 <b-field>
-                  <b-upload v-model="seleccionada" drag-drop name="file">
+                  <b-upload v-model="imagen" drag-drop accept="image/*">
                     <section class="section">
                       <div class="content has-text-centered">
                         <p>
                           <b-icon pack="fas" icon="upload" size="is-large">
                           </b-icon>
                         </p>
-                        <p>Suelta la imagen aquí o haz clic para subir</p>
+                        <p>Suelta la imagen aquí o haz click para subir</p>
                       </div>
                     </section>
                   </b-upload>
                 </b-field>
 
                 <div class="tags">
-                  <span
-                    v-for="(file, index) in seleccionada"
-                    :key="index"
-                    class="tag is-primary"
-                  >
-                    {{ file.name }}
+                  <span class="tag is-primary" v-show="imagen.name != null">
+                    {{ imagen.name }}
                     <button
                       class="delete is-small"
                       type="button"
-                      @click="deleteDropFile(index)"
+                      @click="deleteDropFile(), imageDeletedToast()"
                     ></button>
                   </span>
                 </div>
@@ -76,14 +99,10 @@
             </div>
           </b-field>
 
-          <!-- <b-field>
-            <input @change="onImageSelected" type="file" name="file">
-          </b-field> -->
-
           <div class="buttons is-centered">
             <b-button
               type="is-success is-centered is-medium"
-              v-on:click="savedToast(), guardar(), limpiar()"
+              v-on:click="guardarVerificar()"
               >Guardar palabra</b-button
             >
           </div>
@@ -91,10 +110,6 @@
       </form>
     </div>
     <pre>{{ $data }}</pre>
-
-    <div>
-      <router-view />
-    </div>
   </div>
 </template>
 
@@ -104,23 +119,41 @@ export default {
   data() {
     return {
       nueva_palabra: {
-        lema: "",
-        informacion_gramatical: "",
-        hiperonimo: "",
-        hiponimo: "",
-        significado: "",
-        ejemplo: "",
+        lema: null,
+        informacion_gramatical: null,
+        hiperonimo: null,
+        hiponimo: null,
+        significado: null,
+        ejemplo: null,
         imagenUrl: null,
-        isoglosa: "",
+        isoglosa: null,
       },
 
-      seleccionada: null,
+      categoriasGramaticales: [
+        "Sustantivo",
+        "Adjetivo",
+        "Artículo",
+        "Pronombre",
+        "Verbo",
+        "Adverbio",
+        "Interjección",
+        "Preposición",
+        "Conjunción",
+      ],
+
+      hiperonimo: [
+        "Conocimiento de la naturaleza",
+        "El mundo humano",
+        "Acción del hombre sobre la naturaleza",
+      ],
+
+      imagen: {},
       palabras: [],
+      vacio: 0,
     };
   },
 
   methods: {
-    //form
     guardar() {
       const fd = new FormData();
       fd.append("lema", this.nueva_palabra.lema);
@@ -129,22 +162,26 @@ export default {
       fd.append("hiponimo", this.nueva_palabra.hiponimo);
       fd.append("significado", this.nueva_palabra.significado);
       fd.append("ejemplo", this.nueva_palabra.ejemplo);
-      fd.append("file", this.seleccionada, this.seleccionada.name);
+      fd.append("file", this.imagen, this.imagen.name);
       fd.append("isoglosa", this.nueva_palabra.isoglosa);
 
-      axios.post("https://diccionario-backend.herokuapp.com/palabra/", fd).then((response) => {
-        console.log(response);
-      });
+      axios
+        .post("https://diccionario-backend.herokuapp.com/palabra/", fd)
+        .then((response) => {
+          console.log(response);
+        });
     },
 
     limpiar() {
-      (this.nueva_palabra.lema = ""),
-        (this.nueva_palabra.informacion_gramatical = ""),
-        (this.nueva_palabra.hiperonimo = ""),
-        (this.nueva_palabra.hiponimo = ""),
-        (this.nueva_palabra.significado = ""),
-        (this.nueva_palabra.ejemplo = "");
-      (this.nueva_palabra.imagenUrl = ""), (this.nueva_palabra.isoglosa = "");
+      (this.nueva_palabra.lema = null),
+        (this.nueva_palabra.informacion_gramatical = null),
+        (this.nueva_palabra.hiperonimo = null),
+        (this.nueva_palabra.hiponimo = null),
+        (this.nueva_palabra.significado = null),
+        (this.nueva_palabra.ejemplo = null);
+      (this.nueva_palabra.imagenUrl = null),
+        (this.nueva_palabra.isoglosa = null);
+      this.deleteDropFile();
     },
 
     savedToast() {
@@ -161,13 +198,64 @@ export default {
       });
     },
 
-    deleteDropFile(index) {
-      this.dropFiles.splice(index, 1);
+    deleteDropFile() {
+      this.imagen = {};
     },
 
-    onImageSelected(event) {
-      this.seleccionada = event.target.files[0];
-      console.log(this.seleccionada);
+    verificar() {
+      if (this.nueva_palabra.lema == null) {
+        this.vacio++;
+      }
+      if (this.nueva_palabra.informacion_gramatical == null) {
+        this.vacio++;
+      }
+      if (this.nueva_palabra.hiperonimo == null) {
+        this.vacio++;
+      }
+      if (this.nueva_palabra.hiponimo == null) {
+        this.vacio++;
+      }
+      if (this.nueva_palabra.significado == null) {
+        this.vacio++;
+      }
+      if (this.nueva_palabra.ejemplo == null) {
+        this.vacio++;
+      }
+      if (this.isEmptyObject(this.imagen) == true) {
+        this.vacio++;
+      }
+
+      if (this.nueva_palabra.isoglosa == null) {
+        this.vacio++;
+      }
+    },
+
+    isEmptyObject(obj) {
+      for (var item in obj) {
+        return false;
+      }
+      {
+        return true;
+      }
+    },
+
+    guardarVerificar() {
+      this.verificar();
+
+      if (this.vacio > 0) {
+        this.$buefy.notification.open({
+          duration: 5000,
+          message: `Debe completar todos los campos`,
+          position: "is-bottom-right",
+          type: "is-danger",
+          hasIcon: true,
+          iconPack: "fas",
+          icon: "exclamation-circle",
+        });
+        this.vacio = 0;
+      } else {
+        this.savedToast(), this.guardar(), this.limpiar();
+      }
     },
   },
 };

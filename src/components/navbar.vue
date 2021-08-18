@@ -1,13 +1,12 @@
 <template>
-<div>
-  <!-- <div>
+  <div>
         <b-navbar :centered="true" :shadow="true" id="inicio" :spaced="true">
       <template #start>
 
         <router-link to="/inicio/buscar">
         <b-navbar-item >INICIO</b-navbar-item>
         </router-link>
-        <hr class="navbar-divider">
+        
         <b-navbar-dropdown label="PALABRA" hoverable>
           <router-link to="/crud/palabras"
             ><b-navbar-item>Añadir</b-navbar-item></router-link
@@ -29,24 +28,11 @@
         </b-navbar-dropdown>
       </template>
     </b-navbar>
-  </div> -->
-  <div>
-    <navbar/>
   </div>
-  <router-view>
-  
-  </router-view>
-</div>
 </template>
 
 <script>
-import navbar from './components/navbar.vue'
-import mainNavbar from './components/mainNavbar.vue'
 export default {
-  components: {
-    navbar,
-    mainNavbar
-  }
   
 }
 </script>

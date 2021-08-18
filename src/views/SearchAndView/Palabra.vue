@@ -22,7 +22,7 @@
               </figure>
             </div>
           </div>
-          <div class="columns is-centered componente">
+          <!-- <div class="columns is-centered componente">
             <div class="column box is-three-quarters ">
               <div class="centrado">
                 <div class="mapa centrado">
@@ -32,7 +32,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="centrado" id="regresar">
               <router-link to="/inicio/buscar" >
             <b-button class="is-info">REGRESAR</b-button>

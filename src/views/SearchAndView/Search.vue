@@ -5,7 +5,7 @@
         <b-tabs type="is-boxed is-centered">
           <b-tab-item label="PALABRAS">
             <div>
-              <div class="columns is-centered" style="padding-top: 30px;">
+              <div class="columns is-centered" style="padding-top: 10px;">
                 <div class=" column is-half">
                   <b-field>
                     <b-input
@@ -44,7 +44,7 @@
           </b-tab-item>
           <b-tab-item label="REFRANES">
             <div>
-              <div class="columns is-centered" style="padding-top: 30px;">
+              <div class="columns is-centered" style="padding-top: 10px;">
                 <div class=" column is-half">
                   <b-field>
                     <b-input
@@ -84,6 +84,7 @@
         </b-tabs>
       </section>
     </div>
+    <!-- <pre>{{$data}}</pre> -->
   </div>
 </template>
 
@@ -109,11 +110,25 @@ export default {
     this.palabras = response.data;
     console.log(response.data);
 
+
+    this.palabras.sort((a, b) => {
+      if(a.lema.toLowerCase() < b.lema.toLowerCase()) return -1
+      if(a.lema.toLowerCase() > b.lema.toLowerCase()) return 1
+      return 0
+    });
+    
+
     let response2 = await axios.get(
         "https://diccionario-backend.herokuapp.com/refran/"
     );
     this.refranes = response2.data;
     console.log(response2.data)
+
+    this.refranes.sort((a, b) => {
+      if(a.lema.toLowerCase() < b.lema.toLowerCase()) return -1
+      if(a.lema.toLowerCase() > b.lema.toLowerCase()) return 1
+      return 0
+    });
   },
 
   computed: {
@@ -137,15 +152,20 @@ export default {
 
     seleccionarRefran(id){
       this.$router.push('/inicio/refran/' + id)
-    }
+    },
+
+
   },
 };
 </script>
 
 <style lang="scss" scoped>
+
 .inicio {
   background-color: rgb(241, 241, 241);
+    // background-color: rgb(53, 33, 179);
   height: 100vh;
 }
+
 
 </style>
