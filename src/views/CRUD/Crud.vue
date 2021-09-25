@@ -1,12 +1,24 @@
 <template>
     <div class="inicio">
-      <router-view/>
+      <div>
+        <navbar/>
+      </div>
+
+      <div>
+        <router-view/>
+      </div>
     </div>
 
 </template>
 
 <script>
-
+import navbar from '../../components/navbar.vue'
+export default {
+  components: {
+    navbar,
+  }
+  
+}
 </script>
 
 <style lang="scss" scoped>

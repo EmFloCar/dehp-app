@@ -3,13 +3,13 @@
     <div id="paddingForm">
       <form class="box" enctype="multipart/form-data">
         <section>
-          <b-field label="Lema:" :label-position="'on-border'">
+          <b-field label="Lema:" style="padding-bottom: 2%">
             <b-input v-model="nueva_palabra.lema" required></b-input>
           </b-field>
 
           <b-field
             label="Información gramatical:"
-            :label-position="'on-border'"
+            style="padding-bottom: 2%"
           >
             <b-select
               v-model="nueva_palabra.informacion_gramatical"
@@ -27,7 +27,7 @@
             </b-select>
           </b-field>
 
-          <b-field label="Hiperónimo:" :label-position="'on-border'">
+          <b-field label="Hiperónimo:" style="padding-bottom: 2%">
             <b-select
               v-model="nueva_palabra.hiperonimo"
               expanded
@@ -44,15 +44,35 @@
             </b-select>
           </b-field>
 
-          <b-field label="Hipónimo:" :label-position="'on-border'">
-            <b-input v-model="nueva_palabra.hiponimo" required></b-input>
+          <b-field label="Etimología:" style="padding-bottom: 2%">
+            <b-input type="textarea" v-model="nueva_palabra.etimologia" required></b-input>
           </b-field>
 
-          <b-field label="Isoglosa:" :label-position="'on-border'">
-            <b-input v-model="nueva_palabra.isoglosa" required></b-input>
-          </b-field>
+          <b-field label="Isoglosa:" style="padding-bottom: 3%">
+            <div class="block centrado" 
+            style="flex-wrap: wrap;">
+              <b-checkbox v-model="nueva_palabra.isoglosa" native-value="Alto Sinú ">
+                Alto Sinú
+              </b-checkbox>
+              <b-checkbox v-model="nueva_palabra.isoglosa" native-value=" Medio Sinú">
+                Medio Sinú
+              </b-checkbox>
+              <b-checkbox v-model="nueva_palabra.isoglosa" native-value=" Bajo Sinú">
+                Bajo Sinú
+              </b-checkbox>
+              <b-checkbox v-model="nueva_palabra.isoglosa" native-value=" San Jorge">
+                San Jorge
+              </b-checkbox>
+              <b-checkbox v-model="nueva_palabra.isoglosa" native-value=" Costanera">
+                Costanera                
+              </b-checkbox>
+              <b-checkbox v-model="nueva_palabra.isoglosa" native-value=" Sabanas">
+                Sabanas
+              </b-checkbox>
+            </div>
+            </b-field>
 
-          <b-field label="Significado:" :label-position="'on-border'">
+          <b-field label="Significado:" style="padding-bottom: 2%">
             <b-input
               type="textarea"
               v-model="nueva_palabra.significado"
@@ -60,7 +80,7 @@
             ></b-input>
           </b-field>
 
-          <b-field label="Ejemplo:" :label-position="'on-border'">
+          <b-field label="Ejemplo:" style="padding-bottom: 2%">
             <b-input
               type="textarea"
               v-model="nueva_palabra.ejemplo"
@@ -68,7 +88,7 @@
             ></b-input>
           </b-field>
 
-          <b-field>
+          <b-field >
             <div class="centrado">
               <section>
                 <b-field>
@@ -108,9 +128,10 @@
           </div>
         </section>
       </form>
-    </div>
-    <pre>{{ $data }}</pre>
+    </div> 
+    <pre> {{$data}} </pre>
   </div>
+
 </template>
 
 <script>
@@ -122,11 +143,11 @@ export default {
         lema: null,
         informacion_gramatical: null,
         hiperonimo: null,
-        hiponimo: null,
+        etimologia: null,
         significado: null,
         ejemplo: null,
         imagenUrl: null,
-        isoglosa: null,
+        isoglosa: [],
       },
 
       categoriasGramaticales: [
@@ -159,7 +180,7 @@ export default {
       fd.append("lema", this.nueva_palabra.lema);
       fd.append("informacion_gramatical", this.nueva_palabra.informacion_gramatical);
       fd.append("hiperonimo", this.nueva_palabra.hiperonimo);
-      fd.append("hiponimo", this.nueva_palabra.hiponimo);
+      fd.append("etimologia", this.nueva_palabra.etimologia);
       fd.append("significado", this.nueva_palabra.significado);
       fd.append("ejemplo", this.nueva_palabra.ejemplo);
       fd.append("file", this.imagen, this.imagen.name);
@@ -176,11 +197,11 @@ export default {
       (this.nueva_palabra.lema = null),
         (this.nueva_palabra.informacion_gramatical = null),
         (this.nueva_palabra.hiperonimo = null),
-        (this.nueva_palabra.hiponimo = null),
+        (this.nueva_palabra.etimologia = null),
         (this.nueva_palabra.significado = null),
         (this.nueva_palabra.ejemplo = null);
       (this.nueva_palabra.imagenUrl = null),
-        (this.nueva_palabra.isoglosa = null);
+        (this.nueva_palabra.isoglosa = []);
       this.deleteDropFile();
     },
 
@@ -203,29 +224,29 @@ export default {
     },
 
     verificar() {
-      if (this.nueva_palabra.lema == null) {
+      if (this.nueva_palabra.lema == null || this.nueva_palabra.lema == "" ) {
         this.vacio++;
       }
-      if (this.nueva_palabra.informacion_gramatical == null) {
+      if (this.nueva_palabra.informacion_gramatical == null || this.nueva_palabra.informacion_gramatical == "" ) {
         this.vacio++;
       }
-      if (this.nueva_palabra.hiperonimo == null) {
+      if (this.nueva_palabra.hiperonimo == null || this.nueva_palabra.hiperonimo  == "" ) {
         this.vacio++;
       }
-      if (this.nueva_palabra.hiponimo == null) {
+      if (this.nueva_palabra.etimologia == null || this.nueva_palabra.etimologia == "" ) {
         this.vacio++;
       }
-      if (this.nueva_palabra.significado == null) {
+      if (this.nueva_palabra.significado == null || this.nueva_palabra.significado == "" ) {
         this.vacio++;
       }
-      if (this.nueva_palabra.ejemplo == null) {
+      if (this.nueva_palabra.ejemplo == null || this.nueva_palabra.ejemplo == "" ) {
         this.vacio++;
       }
       if (this.isEmptyObject(this.imagen) == true) {
         this.vacio++;
       }
 
-      if (this.nueva_palabra.isoglosa == null) {
+      if (this.nueva_palabra.isoglosa.length == 0) {
         this.vacio++;
       }
     },
@@ -274,4 +295,5 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 </style>

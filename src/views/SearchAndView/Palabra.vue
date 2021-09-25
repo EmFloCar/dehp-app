@@ -6,12 +6,12 @@
             <div class="column is-full centrado block">
                 <p>
                     <b> {{ this.palabra.lema }}:</b>
-                    {{ this.palabra.informacion_gramatical }} (s),
-                    {{ this.palabra.hiperonimo }} (m.h),
-                    {{ this.palabra.hiponimo }} (c).
-                    {{ this.palabra.significado }}. "{{
-                    this.palabra.ejemplo
-                    }}".
+                    {{ this.palabra.informacion_gramatical }} ({{ this.abreviaturas[this.palabra.informacion_gramatical]}}),
+                    {{ this.palabra.hiperonimo }} ({{ this.abreviaturas[this.palabra.hiperonimo]}}),
+                    {{ this.palabra.etimologia }},
+                    {{ this.palabra.isoglosa}}, 
+                    {{ this.palabra.significado }}. 
+                    "{{this.palabra.ejemplo}}".
                 </p>
             </div>
           </div>
@@ -22,6 +22,7 @@
               </figure>
             </div>
           </div>
+
           <!-- <div class="columns is-centered componente">
             <div class="column box is-three-quarters ">
               <div class="centrado">
@@ -49,8 +50,22 @@ export default {
     data() {
         return {
             id: null,
-            palabra: {},            
+            palabra: {},
 
+            abreviaturas: {
+              Sustantivo: "s",
+              Adjetivo: "adj",
+              Artículo: "art",
+              Pronombre: "pron",
+              Verbo: "v",
+              Adverbio: "adv",
+              Interjección: "interj",
+              Preposición: "prep",
+              Conjunción: "conj",
+              "Conocimiento de la naturaleza": "c.n.",
+              "El mundo humano": "m.h." ,
+              "Acción del hombre sobre la naturaleza": "a.h."             
+            },
 
         }
 
@@ -67,6 +82,7 @@ export default {
         this.palabra = response.data;
         console.log(response.data)
         },
+
     },
 }
 </script>

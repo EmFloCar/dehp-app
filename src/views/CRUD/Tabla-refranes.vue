@@ -47,13 +47,8 @@ export default {
   methods:{
     async eliminar(id){
       let response = await axios.delete("https://diccionario-backend.herokuapp.com/refran/" + id)
-      console.log(response)  
-    },
-
-    async actualizar(){
-    let response = await axios.get("https://diccionario-backend.herokuapp.com/refran/");
-    this.refranes = response.data;
-    console.log(response.data)
+      this.refranes = this.refranes.filter((el)=>el._id !== id)
+      console.log(response)
     },
 
     async editar(id){
@@ -81,7 +76,7 @@ export default {
             hasIcon: true,
             iconPack: 'fas',
             icon: 'exclamation-circle',
-            onConfirm: () => { this.DeletedToast(), this.eliminar(id), this.actualizar()},
+            onConfirm: () => { this.DeletedToast(), this.eliminar(id)},
         })
     }
          

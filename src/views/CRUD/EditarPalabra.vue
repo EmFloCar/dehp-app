@@ -14,8 +14,8 @@
           <b-input v-model="palabra.hiperonimo"></b-input>
         </b-field>
 
-        <b-field label="Hipónimo:" :label-position="'on-border'">
-          <b-input v-model="palabra.hiponimo"></b-input>
+        <b-field label="Etimología:" :label-position="'on-border'">
+          <b-input v-model="palabra.etimologia"></b-input>
         </b-field>
 
         <b-field label="Isoglosa:" :label-position="'on-border'">
@@ -56,7 +56,7 @@ export default {
         lema: "",
         informacion_gramatical: "",
         hiperonimo: "",
-        hiponimo: "",
+        etimologia: "",
         significado: "",
         ejemplo: "",
         imagenUrl: "",
@@ -94,7 +94,7 @@ export default {
         this.palabra.lema = datos.data.lema;
         this.palabra.informacion_gramatical = datos.data.informacion_gramatical;
         this.palabra.hiperonimo = datos.data.hiperonimo;
-        this.palabra.hiponimo = datos.data.hiponimo;
+        this.palabra.etimologia = datos.data.etimologia;
         this.palabra.isoglosa = datos.data.isoglosa;
         this.palabra.significado = datos.data.significado;
         this.palabra.ejemplo = datos.data.ejemplo;
@@ -109,5 +109,11 @@ export default {
   padding-left: 20%;
   padding-right: 20%;
   padding-bottom: 5%;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
