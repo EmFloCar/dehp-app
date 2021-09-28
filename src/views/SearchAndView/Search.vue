@@ -20,7 +20,10 @@
                   </b-field>
                 </div>
               </div>
-              <div class="container box column is-one-third">
+              <div class="container box column is-one-third" style="height: 400px; overflow:auto;padding:10px;">
+                <div>
+                  <img src="../../assets/noResult.png" v-if="noResults">
+                </div>
                 <div class="box " v-for="palabra in PalabrasFiltradas" :key="palabra._id">
                   <div class="columns is-centered">
                     <div class="column is-three-quarters color has-text">
@@ -59,7 +62,10 @@
                   </b-field>
                 </div>
               </div>
-              <div class="container box column is-one-third">
+              <div class="container box column is-one-third" style="height: 400px; overflow:auto;padding:10px;">
+                <div>
+                  <img src="../../assets/noResult.png" v-if="noResults">
+                </div>
                 <div class="box " v-for="refran in RefranesFiltrados" :key="refran._id">
                   <div class="columns is-centered">
                     <div class="column is-three-quarters color has-text">
@@ -98,6 +104,8 @@ export default {
       searchPalabra: "",
       searchRefran: "",
 
+      noResults: false,
+
       seleccionada: [],
     };
   },
@@ -134,13 +142,23 @@ export default {
   computed: {
     PalabrasFiltradas: function() {
       return this.palabras.filter((palabra) => {
-        return palabra.lema.toLowerCase().match(this.searchPalabra.toLowerCase());
+        if (palabra.lema.toLowerCase().match(this.searchPalabra.toLowerCase())) {
+          this.noResults = false;
+          return palabra.lema.toLowerCase().match(this.searchPalabra.toLowerCase());
+        } else{
+          this.noResults = true;
+        }
       });
     },
 
     RefranesFiltrados: function() {
       return this.refranes.filter((refran) => {
-        return refran.lema.toLowerCase().match(this.searchRefran.toLowerCase());
+        if (refran.lema.toLowerCase().match(this.searchRefran.toLowerCase())) {
+          this.noResults = false;
+          return refran.lema.toLowerCase().match(this.searchRefran.toLowerCase());
+        } else{
+          this.noResults = true;
+        }
       });
     },    
   },
