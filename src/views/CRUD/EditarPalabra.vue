@@ -51,7 +51,6 @@ export default {
   data() {
     return {
       palabraId: null,
-
       palabra: {
         lema: "",
         informacion_gramatical: "",
@@ -60,11 +59,10 @@ export default {
         significado: "",
         ejemplo: "",
         imagenUrl: "",
-        isoglosa: "",
+        isoglosa: [],
       },
     };
   },
-
   methods: {
     editar() {
       axios
@@ -73,11 +71,9 @@ export default {
           console.log(data);
         });
     },
-
     salir() {
       this.$router.push("/crud/tabla-palabras");
     },
-
     EditedToast() {
       this.$buefy.toast.open({
         message: "Editado",
@@ -85,7 +81,6 @@ export default {
       });
     },
   },
-
   mounted() {
     this.palabraId = this.$route.params.id;
     axios
@@ -110,7 +105,6 @@ export default {
   padding-right: 20%;
   padding-bottom: 5%;
 }
-
 .center{
   display: flex;
   justify-content: center;

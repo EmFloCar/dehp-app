@@ -63,8 +63,8 @@
                 </div>
               </div>
               <div class="container box column is-one-third" style="height: 400px; overflow:auto;padding:10px;">
-                <div>
-                  <img src="../../assets/noResult.png" v-if="noResults">
+                <div class="centrar">
+                  <img src="../../assets/noResult.png" v-if="noResults" >
                 </div>
                 <div class="box " v-for="refran in RefranesFiltrados" :key="refran._id">
                   <div class="columns is-centered">
@@ -90,7 +90,6 @@
         </b-tabs>
       </section>
     </div>
-    <!-- <pre>{{$data}}</pre> -->
   </div>
 </template>
 
@@ -142,34 +141,26 @@ export default {
   computed: {
     PalabrasFiltradas: function() {
       return this.palabras.filter((palabra) => {
-        if (palabra.lema.toLowerCase().match(this.searchPalabra.toLowerCase())) {
-          this.noResults = false;
-          return palabra.lema.toLowerCase().match(this.searchPalabra.toLowerCase());
-        } else{
-          this.noResults = true;
-        }
+        palabra.lema.toLowerCase().match(this.searchPalabra.toLowerCase()) 
+        return palabra.lema.toLowerCase().match(this.searchPalabra.toLowerCase());
       });
     },
-
+    
     RefranesFiltrados: function() {
       return this.refranes.filter((refran) => {
-        if (refran.lema.toLowerCase().match(this.searchRefran.toLowerCase())) {
-          this.noResults = false;
+        refran.lema.toLowerCase().match(this.searchRefran.toLowerCase())
           return refran.lema.toLowerCase().match(this.searchRefran.toLowerCase());
-        } else{
-          this.noResults = true;
-        }
-      });
-    },    
+      })     
+    }
   },
 
   methods: {
     seleccionarPalabra(id){
-      this.$router.push('/inicio/palabra/' + id)
+      this.$router.push('/palabra/' + id)
     },
 
     seleccionarRefran(id){
-      this.$router.push('/inicio/refran/' + id)
+      this.$router.push('/refran/' + id)
     },
 
 
@@ -183,6 +174,12 @@ export default {
   background-color: rgb(241, 241, 241);
     // background-color: rgb(53, 33, 179);
   height: 100vh;
+}
+
+.centrar{
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 

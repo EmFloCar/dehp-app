@@ -3,7 +3,7 @@
         <b-navbar :centered="true" :shadow="true" id="inicio" :spaced="true">
       <template #start>
 
-        <router-link to="/inicio/buscar">
+        <router-link to="/">
         <b-navbar-item >INICIO</b-navbar-item>
         </router-link>
         

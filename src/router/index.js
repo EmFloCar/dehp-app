@@ -6,9 +6,9 @@ import crud from '../views/CRUD/Crud.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/inicio', name: 'inicio', component: inicio,
+  { path: '', component: inicio,
     children: [
-      { path: 'buscar', name: 'buscar', component: () => import('../views/SearchAndView/Search.vue') },
+      { path: '', name: 'buscar', component: () => import('../views/SearchAndView/Search.vue') },
       { path: 'palabra/:id', name: 'palabra', component: () => import ('../views/SearchAndView/Palabra.vue')},
       { path: 'refran/:id', name: 'refran', component: () => import ('../views/SearchAndView/Refran.vue')}
     ]},

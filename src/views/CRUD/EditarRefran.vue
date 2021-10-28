@@ -2,19 +2,35 @@
   <div id="paddingForm">
     <form class="box">
       <section>
-        <b-field label="Lema:" :label-position="'on-border'">
+        <b-field label="Lema:">
           <b-input v-model="refran.lema"></b-input>
         </b-field>
 
-        <b-field label="Isoglosa:" :label-position="'on-border'">
-          <b-input v-model="refran.isoglosa"></b-input>
+          <!-- <b-field label="Isoglosa:" style="padding-bottom: 3%">
+            <div class="block centrado" 
+            style="flex-wrap: wrap;">
+              <b-checkbox 
+                v-for="elemento in isoglosa"
+                v-model="nuevoRefran.isoglosa"
+                :native-value="elemento"
+                :key="elemento">
+
+                {{elemento}}
+
+              </b-checkbox>
+            </div>
+            </b-field> -->
+        <b-field label="Isoglosa">
+          <b-input v-model="refran.isoglosa">
+
+          </b-input>
         </b-field>
 
-        <b-field label="Acto de habla:" :label-position="'on-border'">
+        <b-field label="Acto de habla:">
           <b-input v-model="refran.acto_de_habla"></b-input>
         </b-field>
 
-        <b-field label="Significado:" :label-position="'on-border'">
+        <b-field label="Significado:">
           <b-input type="textarea" v-model="refran.significado"></b-input>
         </b-field>
 

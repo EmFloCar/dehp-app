@@ -18,24 +18,13 @@
           <div class="columns is-centered componente">
             <div class="column box is-three-quarters ">
               <figure class="image is-640x480">
-                <img v-bind:src="this.palabra.imagenUrl" />
+                <img class="image is-640x480" v-bind:src="this.palabra.imagenUrl" />
               </figure>
             </div>
           </div>
 
-          <!-- <div class="columns is-centered componente">
-            <div class="column box is-three-quarters ">
-              <div class="centrado">
-                <div class="mapa centrado">
-                  <div style="font-size: 24px;">
-                    <i class="fas fa-map-marked-alt fa-10x"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
           <div class="centrado" id="regresar">
-              <router-link to="/inicio/buscar" >
+              <router-link to="/" >
             <b-button class="is-info">REGRESAR</b-button>
               </router-link>
           </div>
@@ -64,7 +53,10 @@ export default {
               Conjunción: "conj",
               "Conocimiento de la naturaleza": "c.n.",
               "El mundo humano": "m.h." ,
-              "Acción del hombre sobre la naturaleza": "a.h."             
+              "Acción del hombre sobre la naturaleza": "a.h.",
+              Refran: "refran",
+              "Frase proverbial": "frase provevial",
+              Locución: "locucion"        
             },
 
         }
@@ -101,12 +93,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.mapa {
-  background-color: rgb(188, 206, 245);
-  width: 600px;
-  height: 500px;
 }
 
 #regresar {
