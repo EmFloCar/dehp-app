@@ -51,23 +51,14 @@
           <b-field label="Isoglosa:" style="padding-bottom: 3%">
             <div class="block centrado" 
             style="flex-wrap: wrap;">
-              <b-checkbox v-model="nueva_palabra.isoglosa" native-value="Alto Sinú ">
-                Alto Sinú
-              </b-checkbox>
-              <b-checkbox v-model="nueva_palabra.isoglosa" native-value=" Medio Sinú">
-                Medio Sinú
-              </b-checkbox>
-              <b-checkbox v-model="nueva_palabra.isoglosa" native-value=" Bajo Sinú">
-                Bajo Sinú
-              </b-checkbox>
-              <b-checkbox v-model="nueva_palabra.isoglosa" native-value=" San Jorge">
-                San Jorge
-              </b-checkbox>
-              <b-checkbox v-model="nueva_palabra.isoglosa" native-value=" Costanera">
-                Costanera                
-              </b-checkbox>
-              <b-checkbox v-model="nueva_palabra.isoglosa" native-value=" Sabanas">
-                Sabanas
+              <b-checkbox 
+                v-for="elemento in isoglosa"
+                v-model="nueva_palabra.isoglosa"
+                :native-value="elemento"
+                :key="elemento">
+
+                {{elemento}}
+
               </b-checkbox>
             </div>
             </b-field>
@@ -160,6 +151,18 @@ export default {
         "Interjección",
         "Preposición",
         "Conjunción",
+        "Refran",
+        "Frase proverbial",
+        "Locución"
+      ],
+
+      isoglosa: [
+        "Alto Sinú",
+        "Medio Sinú",
+        "Bajo Sinú",
+        "San Jorge",
+        "Costanera",
+        "Sabanas",
       ],
 
       hiperonimo: [
@@ -294,6 +297,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.agrupar{
+  width: 960px;
+  border: 1px solid black;
+  margin: 15px auto;
+  padding: 100px;
 }
 
 </style>

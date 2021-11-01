@@ -1,6 +1,6 @@
 <template>
   <div id="paddingList">
-    <b-table :data="palabras" sticky-header height="500px" narrowed hoverable striped> 
+    <b-table :data="palabras" sticky-header height="600" narrowed hoverable striped> 
       <b-table-column field="lema" id="center" label="Lema" width="50" v-slot="props" searchable sortable centered>
           {{ props.row.lema }}
       </b-table-column>

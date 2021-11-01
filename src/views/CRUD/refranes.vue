@@ -4,19 +4,30 @@
       <form class="box" >
         <section>
 
-          <b-field label="Lema:" :label-position='"on-border"'>
+          <b-field label="Lema:">
             <b-input v-model='nuevoRefran.lema'></b-input>
           </b-field>
 
-          <b-field label="Isoglosa:" :label-position='"on-border"'>
-            <b-input v-model='nuevoRefran.isoglosa'></b-input>
-          </b-field>
+          <b-field label="Isoglosa:" style="padding-bottom: 3%">
+            <div class="block centrado" 
+            style="flex-wrap: wrap;">
+              <b-checkbox 
+                v-for="elemento in isoglosa"
+                v-model="nuevoRefran.isoglosa"
+                :native-value="elemento"
+                :key="elemento">
 
-          <b-field label="Acto de habla:" :label-position='"on-border"'>
+                {{elemento}}
+
+              </b-checkbox>
+            </div>
+            </b-field>
+
+          <b-field label="Acto de habla:">
             <b-input v-model='nuevoRefran.acto_de_habla'></b-input>
           </b-field>
 
-          <b-field label="Significado:" :label-position='"on-border"'>
+          <b-field label="Significado:">
             <b-input type="textarea" v-model='nuevoRefran.significado'></b-input>
           </b-field>
 
@@ -43,10 +54,19 @@ export default {
     return{
       nuevoRefran: {
         lema: "",
-        isoglosa: "",
+        isoglosa: [],
         acto_de_habla: "",
         significado: "",
         },
+      
+      isoglosa: [
+        "Alto Sinú",
+        "Medio Sinú",
+        "Bajo Sinú",
+        "San Jorge",
+        "Costanera",
+        "Sabanas",
+      ],
     
       refranes: [],
     } 
@@ -61,7 +81,7 @@ export default {
 
     limpiar(){
       this.nuevoRefran.lema = "",
-      this.nuevoRefran.isoglosa = "",
+      this.nuevoRefran.isoglosa = [],
       this.nuevoRefran.acto_de_habla = "",
       this.nuevoRefran.significado = ""
     },
@@ -86,5 +106,11 @@ export default {
     padding-right: 20%;
     padding-bottom: 5%;
   }
+
+  .centrado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 

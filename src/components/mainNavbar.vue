@@ -2,7 +2,7 @@
   <div>
         <b-navbar :centered="true" :shadow="true" id="inicio">
       <template #brand>
-        <router-link to="/inicio/buscar">
+        <router-link to="/">
           <img src="../assets/logo.png" alt="">
         </router-link> 
         
