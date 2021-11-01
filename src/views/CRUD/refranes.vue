@@ -81,7 +81,7 @@ export default {
 
     limpiar(){
       this.nuevoRefran.lema = "",
-      this.nuevoRefran.isoglosa = "",
+      this.nuevoRefran.isoglosa = [],
       this.nuevoRefran.acto_de_habla = "",
       this.nuevoRefran.significado = ""
     },

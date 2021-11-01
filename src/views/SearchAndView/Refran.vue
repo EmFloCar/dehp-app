@@ -6,7 +6,7 @@
             <div class="column is-full centrado block">
                 <p>
                     <b> {{ this.refran.lema }}:</b>
-                    {{ this.refran.isoglosa }}
+                    {{ this.refran.isoglosa }}.
                     {{ this.refran.acto_de_habla }}
                     {{ this.refran.significado }}
                 </p>
@@ -39,7 +39,12 @@ export default {
     data() {
         return {
             id: null,
-            refran: {},            
+            refran: {
+              lema: null,
+              isoglosa: null,
+              acto_de_habla: null,
+              significado: null,
+            },            
 
 
         }
@@ -54,7 +59,11 @@ export default {
     methods: {
         async actualizar(){
         let response = await axios.get("https://diccionario-backend.herokuapp.com/refran/" + this.id);
-        this.refran = response.data;
+          this.refran.lema = response.data.lema
+          this.refran.isoglosa = response.data.isoglosa.split(",")
+          this.refran.isoglosa = this.refran.isoglosa.join(", ") 
+          this.refran.acto_de_habla = response.data.acto_de_habla
+          this.refran.significado = response.data.significado
         console.log(response.data)
         },
     },

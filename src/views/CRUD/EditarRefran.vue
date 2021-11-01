@@ -6,12 +6,12 @@
           <b-input v-model="refran.lema"></b-input>
         </b-field>
 
-          <!-- <b-field label="Isoglosa:" style="padding-bottom: 3%">
+          <b-field label="Isoglosa:" style="padding-bottom: 3%">
             <div class="block centrado" 
             style="flex-wrap: wrap;">
               <b-checkbox 
                 v-for="elemento in isoglosa"
-                v-model="nuevoRefran.isoglosa"
+                v-model="refran.isoglosa"
                 :native-value="elemento"
                 :key="elemento">
 
@@ -19,12 +19,12 @@
 
               </b-checkbox>
             </div>
-            </b-field> -->
-        <b-field label="Isoglosa">
+            </b-field>
+        
+        <!-- <b-field label="Isoglosa">
           <b-input v-model="refran.isoglosa">
-
           </b-input>
-        </b-field>
+        </b-field> -->
 
         <b-field label="Acto de habla:">
           <b-input v-model="refran.acto_de_habla"></b-input>
@@ -47,6 +47,7 @@
         </div>
       </section>
     </form>
+    <pre> {{$data}} </pre>
   </div>
 </template>
 
@@ -59,20 +60,30 @@ export default {
 
       refran: {
         lema: "",
-        isoglosa: "",
+        isoglosa: [],
         acto_de_habla: "",
         significado: "",
       },
+      isoglosa: [
+        "Alto Sinú",
+        "Medio Sinú",
+        "Bajo Sinú",
+        "San Jorge",
+        "Costanera",
+        "Sabanas",
+      ],
     };
   },
 
   methods: {
     editar() {
+      this.refran.isoglosa = this.refran.isoglosa.toString()
       axios
         .put("https://diccionario-backend.herokuapp.com/refran/" + this.refranId, this.refran)
         .then((data) => {
           console.log(data);
         });
+      this.refran.isoglosa = this.refran.isoglosa.split(",")
     },
 
     salir() {
@@ -92,7 +103,7 @@ export default {
     this.refranId = this.$route.params.id;
     axios.get("https://diccionario-backend.herokuapp.com/refran/" + this.refranId).then((datos) => {
       this.refran.lema = datos.data.lema;
-      this.refran.isoglosa = datos.data.isoglosa;
+      this.refran.isoglosa = datos.data.isoglosa.split(",");
       this.refran.acto_de_habla = datos.data.acto_de_habla;
       this.refran.significado = datos.data.significado;
     });
@@ -106,5 +117,10 @@ export default {
   padding-left: 20%;
   padding-right: 20%;
   padding-bottom: 5%;
+}
+.centrado{
+display: flex;
+justify-content: center;
+align-items: center;
 }
 </style>
