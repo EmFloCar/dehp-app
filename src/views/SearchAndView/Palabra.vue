@@ -3,7 +3,7 @@
       <div class="container">
         <div class="block">
           <div class="columns box">
-            <div class="column is-full centrado block">
+            <div class="column is-full centrado">
                 <p>
                     <b> {{ this.palabra.lema }}:</b>
                     {{ this.palabra.informacion_gramatical }} ({{ this.abreviaturas[this.palabra.informacion_gramatical]}}),
@@ -14,14 +14,28 @@
                     "{{this.palabra.ejemplo}}".
                 </p>
             </div>
+            
           </div>
-          <div class="columns is-centered componente">
-            <div class="column box is-three-quarters ">
-              <figure class="image is-640x480">
-                <img class="image is-640x480" v-bind:src="this.palabra.imagenUrl" />
+          <br>
+          <div class="columns box">
+            <div class="column centrado">
+              <figure>
+                <img  class="imgCenter" v-bind:src="this.palabra.imagenUrl" />
               </figure>
             </div>
+            <div class="column">
+              <mapa :isoglosa="this.palabra.isoglosa.split(',')"></mapa>
+            </div>
           </div>
+          
+
+          <!-- <div class="columns is-centered componente">
+            <div class="column box is-three-quarters ">
+              <figure class="centrado">
+                <img  v-bind:src="this.palabra.imagenUrl" />
+              </figure>
+            </div>
+          </div> -->
 
           <div class="centrado" id="regresar">
               <router-link to="/" >
@@ -35,7 +49,11 @@
 
 <script>
 import axios from 'axios';
+import mapa from '../../components/mapa.vue'
 export default {
+    components:{
+      mapa
+    },
     data() {
         return {
             id: null,
@@ -85,7 +103,8 @@ export default {
         this.palabra.informacion_gramatical = datos.data.informacion_gramatical;
         this.palabra.hiperonimo = datos.data.hiperonimo;
         this.palabra.etimologia = datos.data.etimologia;
-        this.palabra.isoglosa = datos.data.isoglosa.split(",");
+        this.palabra.isoglosa = datos.data.isoglosa.split(", ");
+        this.isoglosaProp = datos.data.isoglosa.split(", ")
         this.palabra.isoglosa = this.palabra.isoglosa.join(", ")
         this.palabra.significado = datos.data.significado;
         this.palabra.imagenUrl = datos.data.imagenUrl,
@@ -104,7 +123,7 @@ export default {
 }
 
 .componente {
-  padding: 40px 0px 0px 0px;
+  padding: 40px;
 }
 
 .centrado {
@@ -113,8 +132,30 @@ export default {
   align-items: center;
 }
 
+.imgCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
 #regresar {
   padding-top: 20px;
   padding-bottom: 60px;
+}
+
+img {
+    max-width: 350px;
+    max-height: auto;
+}
+
+// .box box{
+//   width: 30%;
+//   height: auto;
+// }
+
+.map{
+  border: 2px;
+  border-color: red;
 }
 </style>

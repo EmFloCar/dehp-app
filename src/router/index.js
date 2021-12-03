@@ -10,7 +10,7 @@ const routes = [
     children: [
       { path: '', name: 'buscar', component: () => import('../views/SearchAndView/Search.vue') },
       { path: 'palabra/:id', name: 'palabra', component: () => import ('../views/SearchAndView/Palabra.vue')},
-      { path: 'refran/:id', name: 'refran', component: () => import ('../views/SearchAndView/Refran.vue')}
+      { path: 'refran/:id', name: 'refran', component: () => import ('../views/SearchAndView/Refran.vue')},
     ]},
   { path: '/crud', name: 'crud', component: crud,
     children: [

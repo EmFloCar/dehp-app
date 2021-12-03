@@ -31,6 +31,37 @@
             <b-input type="textarea" v-model='nuevoRefran.significado'></b-input>
           </b-field>
 
+          <b-field >
+            <div class="centrado">
+              <section>
+                <b-field>
+                  <b-upload v-model="imagen" drag-drop accept="image/*">
+                    <section class="section">
+                      <div class="content has-text-centered">
+                        <p>
+                          <b-icon pack="fas" icon="upload" size="is-large">
+                          </b-icon>
+                        </p>
+                        <p>Suelta la imagen aquí o haz click para subir</p>
+                      </div>
+                    </section>
+                  </b-upload>
+                </b-field>
+
+                <div class="tags">
+                  <span class="tag is-primary" v-show="imagen.name != null">
+                    {{ imagen.name }}
+                    <button
+                      class="delete is-small"
+                      type="button"
+                      @click="deleteDropFile(), imageDeletedToast()"
+                    ></button>
+                  </span>
+                </div>
+              </section>
+            </div>
+          </b-field>
+
           <div class="buttons is-centered">
             <b-button type="is-success is-centered" v-on:click=" savedToast(), guardar(), limpiar()" >Guardar</b-button>
           </div>
@@ -58,6 +89,8 @@ export default {
         acto_de_habla: "",
         significado: "",
         },
+
+      imagen: {},
       
       isoglosa: [
         "Alto Sinú",
@@ -76,14 +109,24 @@ export default {
   methods:{
     //form
     guardar(){
-      axios.post("https://diccionario-backend.herokuapp.com/refran/", this.nuevoRefran).then(response=>{console.log(response)})
+      const fd = new FormData();
+      fd.append("lema", this.nuevoRefran.lema)
+      fd.append("isoglosa", this.nuevoRefran.isoglosa)
+      fd.append("acto_de_habla", this.nuevoRefran.acto_de_habla)
+      fd.append("significado", this.nuevoRefran.significado)
+      fd.append("file", this.imagen, this.imagen.name)
+
+      axios
+        .post("https://diccionario-backend.herokuapp.com/refran/", fd)
+        .then(response=>{console.log(response)})
     },
 
     limpiar(){
       this.nuevoRefran.lema = "",
       this.nuevoRefran.isoglosa = [],
       this.nuevoRefran.acto_de_habla = "",
-      this.nuevoRefran.significado = ""
+      this.nuevoRefran.significado = "",
+      this.deleteDropFile()
     },
 
     savedToast() {
@@ -93,6 +136,23 @@ export default {
         })
     },
 
+    savedToast() {
+      this.$buefy.toast.open({
+        message: "Guardado",
+        type: "is-success",
+      });
+    },
+
+    imageDeletedToast() {
+      this.$buefy.toast.open({
+        message: "Imagen eliminada",
+        type: "is-danger",
+      });
+    },
+
+    deleteDropFile() {
+      this.imagen = {};
+    },
     
   },
 

@@ -12,15 +12,14 @@
                 </p>
             </div>
           </div>
-          <div class="columns is-centered componente">
-            <div class="column box is-three-quarters ">
-              <div class="centrado">
-                <div class="mapa centrado">
-                  <div style="font-size: 24px;">
-                    <i class="fas fa-image fa-10x"></i>
-                  </div>
-                </div>
-              </div>
+          <div class="columns">
+            <div class="column centrado">
+              <figure>
+                <img  class="imgCenter" v-bind:src="this.refran.imagenUrl" />
+              </figure>
+            </div>
+            <div class="column">
+              <mapa :isoglosa="this.refran.isoglosa.split(',')"></mapa>
             </div>
           </div>
           <div class="centrado" id="regresar">
@@ -35,7 +34,11 @@
 
 <script>
 import axios from 'axios';
+import mapa from '../../components/mapa.vue'
 export default {
+    components:{
+      mapa
+    },
     data() {
         return {
             id: null,
@@ -44,6 +47,7 @@ export default {
               isoglosa: null,
               acto_de_habla: null,
               significado: null,
+              imagenUrl: null,
             },            
 
 
@@ -64,6 +68,7 @@ export default {
           this.refran.isoglosa = this.refran.isoglosa.join(", ") 
           this.refran.acto_de_habla = response.data.acto_de_habla
           this.refran.significado = response.data.significado
+          this.refran.imagenUrl = response.data.imagenUrl
         console.log(response.data)
         },
     },
@@ -84,12 +89,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.mapa {
-  background-color: rgb(188, 206, 245);
-  width: 400px;
-  height: 300px;
 }
 
 #regresar {
