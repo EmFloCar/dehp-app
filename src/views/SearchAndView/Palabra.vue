@@ -149,11 +149,6 @@ img {
     max-height: auto;
 }
 
-// .box box{
-//   width: 30%;
-//   height: auto;
-// }
-
 .map{
   border: 2px;
   border-color: red;

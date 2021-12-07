@@ -3,12 +3,13 @@
         <b-navbar :centered="true" :shadow="true" id="inicio">
       <template #brand>
         <router-link to="/">
-          <img src="../assets/logo.png" alt="">
+          <img src="../assets/logo.png" class="universidad">
         </router-link> 
+        <img src="../assets/lexicon.png" class="lexicon">
         
       </template>
       <template #start>
-        <h1>Diccionario electrónico del habla popular de los valles de los ríos Sinú y San Jorge</h1>   
+        <h2>Diccionario electrónico del habla popular de los valles de los ríos Sinú y San Jorge</h2>   
       </template>
 
       <template #end >
@@ -31,14 +32,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  h1{
+  h2{
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: auto;
   }
 
-img{
+.lexicon{
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding-left: 10px;
+}
+
+.universidad{
   height: 65px;
   width: 50px;
   padding-left: 10px;

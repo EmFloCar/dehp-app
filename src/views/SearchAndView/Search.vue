@@ -170,12 +170,6 @@ export default {
 
 <style lang="scss" scoped>
 
-.inicio {
-  background-color: rgb(241, 241, 241);
-    // background-color: rgb(53, 33, 179);
-  height: 100vh;
-}
-
 .centrar{
 display: flex;
 justify-content: center;
