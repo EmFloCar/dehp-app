@@ -47,7 +47,6 @@
         </div>
       </section>
     </form>
-    <pre> {{$data}} </pre>
   </div>
 </template>
 
