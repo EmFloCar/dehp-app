@@ -1168,7 +1168,6 @@ export default {
 		
     },
     mounted(){
-		console.log(this.isoglosa)
         for (let index = 0; index < this.isoglosa.length; index++) {
 			switch (this.isoglosa[index]) {
 				case "Alto Sinú":

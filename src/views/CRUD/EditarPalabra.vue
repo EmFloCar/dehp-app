@@ -141,7 +141,7 @@ export default {
       axios
         .put("https://diccionario-backend.herokuapp.com/palabra/" + this.palabraId, this.palabra)
         .then((data) => {
-          console.log(data);
+          console.log(data.status);
         });
       this.palabra.isoglosa = this.palabra.isoglosa.split(",")
     },

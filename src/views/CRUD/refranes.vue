@@ -118,7 +118,7 @@ export default {
 
       axios
         .post("https://diccionario-backend.herokuapp.com/refran/", fd)
-        .then(response=>{console.log(response)})
+        .then(response=>{console.log(response.status)})
     },
 
     limpiar(){

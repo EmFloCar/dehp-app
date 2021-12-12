@@ -71,14 +71,12 @@ export default {
   async mounted(){
     let response = await axios.get("https://diccionario-backend.herokuapp.com/palabra/");
     this.palabras = response.data;
-    console.log(response.data)
     },
   
   methods:{
     async eliminar(id){
-      let response = await axios.delete("https://diccionario-backend.herokuapp.com/palabra/" + id)
+      await axios.delete("https://diccionario-backend.herokuapp.com/palabra/" + id)
       this.palabras = this.palabras.filter((el)=>el._id !== id)
-      console.log(response)
     },
 
     editar(id){

@@ -192,7 +192,7 @@ export default {
       axios
         .post("https://diccionario-backend.herokuapp.com/palabra/", fd)
         .then((response) => {
-          console.log(response);
+          console.log(response.status);
         });
     },
 

@@ -115,8 +115,6 @@ export default {
       "https://diccionario-backend.herokuapp.com/palabra/"
     );
     this.palabras = response.data;
-    console.log(response.data);
-
 
     this.palabras.sort((a, b) => {
       if(a.lema.toLowerCase() < b.lema.toLowerCase()) return -1
@@ -129,7 +127,6 @@ export default {
         "https://diccionario-backend.herokuapp.com/refran/"
     );
     this.refranes = response2.data;
-    console.log(response2.data)
 
     this.refranes.sort((a, b) => {
       if(a.lema.toLowerCase() < b.lema.toLowerCase()) return -1

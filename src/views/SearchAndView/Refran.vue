@@ -19,7 +19,7 @@
               </figure>
             </div>
             <div class="column">
-              <mapa :isoglosa="this.refran.isoglosa.split(',')"></mapa>
+              <mapa :isoglosa="this.refran.isoglosa.split(', ')"></mapa>
             </div>
           </div>
           <div class="centrado" id="regresar">
@@ -64,12 +64,10 @@ export default {
         async actualizar(){
         let response = await axios.get("https://diccionario-backend.herokuapp.com/refran/" + this.id);
           this.refran.lema = response.data.lema
-          this.refran.isoglosa = response.data.isoglosa.split(",")
-          this.refran.isoglosa = this.refran.isoglosa.join(", ") 
+          this.refran.isoglosa = response.data.isoglosa.split(",").join(", ")
           this.refran.acto_de_habla = response.data.acto_de_habla
           this.refran.significado = response.data.significado
           this.refran.imagenUrl = response.data.imagenUrl
-        console.log(response.data)
         },
     },
 }

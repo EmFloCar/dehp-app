@@ -24,18 +24,9 @@
               </figure>
             </div>
             <div class="column">
-              <mapa :isoglosa="this.palabra.isoglosa.split(',')"></mapa>
+              <mapa :isoglosa="this.palabra.isoglosa.split(', ')"></mapa>
             </div>
           </div>
-          
-
-          <!-- <div class="columns is-centered componente">
-            <div class="column box is-three-quarters ">
-              <figure class="centrado">
-                <img  v-bind:src="this.palabra.imagenUrl" />
-              </figure>
-            </div>
-          </div> -->
 
           <div class="centrado" id="regresar">
               <router-link to="/" >
@@ -103,14 +94,12 @@ export default {
         this.palabra.informacion_gramatical = datos.data.informacion_gramatical;
         this.palabra.hiperonimo = datos.data.hiperonimo;
         this.palabra.etimologia = datos.data.etimologia;
-        this.palabra.isoglosa = datos.data.isoglosa.split(", ");
-        this.isoglosaProp = datos.data.isoglosa.split(", ")
-        this.palabra.isoglosa = this.palabra.isoglosa.join(", ")
+        this.palabra.isoglosa = datos.data.isoglosa.split(',').join(', ');
         this.palabra.significado = datos.data.significado;
         this.palabra.imagenUrl = datos.data.imagenUrl,
         this.palabra.ejemplo = datos.data.ejemplo;
-        console.log(datos.data)
         },
+
 
     },
 }
@@ -148,6 +137,7 @@ img {
     max-width: 350px;
     max-height: auto;
 }
+
 
 .map{
   border: 2px;

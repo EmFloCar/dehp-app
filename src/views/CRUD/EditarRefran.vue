@@ -81,7 +81,7 @@ export default {
       axios
         .put("https://diccionario-backend.herokuapp.com/refran/" + this.refranId, this.refran)
         .then((data) => {
-          console.log(data);
+          console.log(data.status);
         });
       this.refran.isoglosa = this.refran.isoglosa.split(",")
     },
