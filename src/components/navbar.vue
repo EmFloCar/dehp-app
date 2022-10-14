@@ -24,8 +24,20 @@
           <router-link to="/crud/tabla-refranes">
             <b-navbar-item>Editar</b-navbar-item>
           </router-link>
-
         </b-navbar-dropdown>
+      </template>
+      <template #end>
+        <div>
+            <b-navbar-item v-on:click="confirmLogOut()">
+                <b-icon
+                pack="fas"
+                icon="power-off"
+                size="is-medium"
+                type="is-danger"
+                >
+            </b-icon>
+            </b-navbar-item>
+        </div>
       </template>
     </b-navbar>
   </div>
@@ -33,6 +45,26 @@
 
 <script>
 export default {
-  
+  data(){
+    return {
+
+    }
+  },
+  methods: {
+    cerrarSesion(){
+      localStorage.removeItem("token");
+      this.$router.push("/")
+    },
+    confirmLogOut() {
+                this.$buefy.dialog.confirm({
+                    title: 'Cerrando sesión',
+                    message: '¿Estás seguro que quieres <b>cerrar</b> sesión?',
+                    confirmText: 'Cerrar sesión',
+                    type: 'is-danger',
+                    hasIcon: false,
+                    onConfirm: () => this.cerrarSesion()
+                })
+            }
+  },
 }
 </script>

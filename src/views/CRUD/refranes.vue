@@ -104,7 +104,11 @@ export default {
       refranes: [],
     } 
   },
-
+  mounted() {
+    if(!localStorage.token){
+      return this.$router.replace('/noauth')
+    }  
+  },
   
   methods:{
     //form

@@ -134,6 +134,11 @@ export default {
       ],
     };
   },
+  mounted() {
+    if(!localStorage.token){
+      return this.$router.replace('/noauth')
+    }  
+  },
   methods: {
     editar() {
       this.palabra.isoglosa = this.palabra.isoglosa.toString()

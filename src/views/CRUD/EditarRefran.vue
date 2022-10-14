@@ -71,9 +71,13 @@ export default {
         "Costanera",
         "Sabanas",
       ],
-    };
+    }
   },
-
+  mounted() {
+    if(!localStorage.token){
+      return this.$router.replace('/noauth')
+    }  
+  },
   methods: {
     editar() {
       this.refran.isoglosa = this.refran.isoglosa.toString()

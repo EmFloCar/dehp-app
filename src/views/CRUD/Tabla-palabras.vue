@@ -69,6 +69,10 @@ export default {
 
 // tabla
   async mounted(){
+    if(!localStorage.token){
+      return this.$router.replace('/noauth')
+    }  
+    
     let response = await axios.get("https://diccionario-backend.herokuapp.com/palabra/");
     this.palabras = response.data;
     },

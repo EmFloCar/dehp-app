@@ -176,6 +176,12 @@ export default {
     };
   },
 
+  mounted() {
+    if(!localStorage.token){
+      return this.$router.replace('/noauth')
+    }  
+  },
+
   methods: {
     guardar() {
       const fd = new FormData();

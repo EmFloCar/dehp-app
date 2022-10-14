@@ -11,8 +11,10 @@ const routes = [
       { path: '', name: 'buscar', component: () => import('../views/SearchAndView/Search.vue') },
       { path: 'palabra/:id', name: 'palabra', component: () => import ('../views/SearchAndView/Palabra.vue')},
       { path: 'refran/:id', name: 'refran', component: () => import ('../views/SearchAndView/Refran.vue')},
+      { path: 'login', name: 'login', component:() => import('../views/login.vue') },
+      { path: 'noauth', name: 'noauth', component:()=> import('../views/noAuth.vue')}
     ]},
-  { path: '/crud', name: 'crud', component: crud,
+    { path: '/crud', name: 'crud', component: crud,
     children: [
       { path: 'palabras', name: 'palabras', component: () => import('../views/CRUD/palabras.vue')},
       { path: 'tabla-palabras', name: 'tabla-palabras', component: () => import('../views/CRUD/Tabla-palabras.vue')},

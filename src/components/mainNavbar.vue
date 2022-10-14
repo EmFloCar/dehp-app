@@ -14,7 +14,7 @@
 
       <template #end >
         <div class="centrarConfig">
-        <router-link to="/crud/palabras">
+        <router-link to="/login">
           <a>
             <b-button icon-pack="fas" icon-left="cog" />
           </a>
